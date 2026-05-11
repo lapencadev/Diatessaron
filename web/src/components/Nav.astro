@@ -1,0 +1,93 @@
+---
+const navLinks = [
+  { href: '#inicio', label: 'Inicio' },
+  { href: '#conciertos', label: 'Conciertos' },
+  { href: '#videos', label: 'Vídeos' },
+  { href: '#galeria', label: 'Galería' },
+  { href: '#nosotros', label: 'Nosotros' },
+  { href: '#contacto', label: 'Contacto' },
+];
+---
+
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" data-scrolled="false">
+  <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16 md:h-20">
+    <!-- Logo -->
+    <a href="#inicio" class="flex-shrink-0">
+      <img src="/logo.png" alt="Coro Diatessaron" class="h-10 md:h-12 w-auto" />
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="hidden md:flex items-center gap-8">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class="text-sm tracking-widest uppercase text-coro-light/80 hover:text-coro-gold transition-colors duration-200"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Mobile hamburger -->
+    <button id="menu-btn" class="md:hidden text-coro-light p-2" aria-label="Menú">
+      <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-coro-dark/95 backdrop-blur border-t border-coro-gold/20">
+    <ul class="flex flex-col py-4">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class="mobile-link block px-6 py-3 text-sm tracking-widest uppercase text-coro-light/80 hover:text-coro-gold hover:bg-white/5 transition-colors"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<script>
+  const navbar = document.getElementById('navbar')!;
+  const menuBtn = document.getElementById('menu-btn')!;
+  const mobileMenu = document.getElementById('mobile-menu')!;
+  const iconOpen = document.getElementById('icon-open')!;
+  const iconClose = document.getElementById('icon-close')!;
+
+  // Scroll: add background when scrolled
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add('bg-coro-dark/95', 'backdrop-blur', 'shadow-lg', 'border-b', 'border-coro-gold/20');
+    } else {
+      navbar.classList.remove('bg-coro-dark/95', 'backdrop-blur', 'shadow-lg', 'border-b', 'border-coro-gold/20');
+    }
+  });
+
+  // Mobile toggle
+  menuBtn.addEventListener('click', () => {
+    const isOpen = !mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    iconOpen.classList.toggle('hidden', !isOpen);
+    iconClose.classList.toggle('hidden', isOpen);
+  });
+
+  // Close on link click
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    });
+  });
+</script>

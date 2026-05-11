@@ -1,0 +1,66 @@
+---
+// Añade o quita vídeos aquí — usa el ID de YouTube (la parte final de la URL)
+const videos = [
+  {
+    id: 'r-h7S0uo7VY',
+    titulo: 'Concierto Western — Resumen',
+    descripcion: 'Vídeo resumen del espectacular concierto temático Western del Coro Diatessaron.',
+  },
+  {
+    id: 'r8ID90y7Mgk',
+    titulo: 'Ola Gjeilo: Northern Lights',
+    descripcion: 'Interpretación de Northern Lights dentro del programa «Destellos».',
+  },
+  {
+    id: 'oUk75LDOK30',
+    titulo: 'Josep Vila: Sanctus-Benedictus',
+    descripcion: 'Sanctus-Benedictus de Josep Vila, programa «Destellos».',
+  },
+];
+---
+
+<section id="videos" class="py-24 px-4 bg-coro-dark">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="reveal">
+      <h2 class="section-title">Vídeos</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {videos.map((v, i) => (
+        <div class={`flex flex-col gap-3 reveal reveal-delay-${Math.min(i + 1, 4)}`}>
+          <!-- Embed YouTube con aspect ratio 16:9 -->
+          <div class="relative w-full" style="padding-top: 56.25%">
+            <iframe
+              class="absolute inset-0 w-full h-full rounded-sm"
+              src={`https://www.youtube.com/embed/${v.id}`}
+              title={v.titulo}
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div>
+            <h3 class="text-coro-light font-serif text-lg">{v.titulo}</h3>
+            <p class="text-coro-light/50 text-sm mt-1">{v.descripcion}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Enlace al canal -->
+    <div class="mt-12 text-center">
+      <a
+        href="https://www.youtube.com/@corodiatessaron"
+        target="_blank"
+        rel="noopener"
+        class="btn-outline"
+      >
+        Ver canal de YouTube →
+      </a>
+    </div>
+
+  </div>
+</section>

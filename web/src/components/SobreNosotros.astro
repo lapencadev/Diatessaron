@@ -1,0 +1,62 @@
+---
+---
+
+<section id="nosotros" class="py-24 px-4 bg-coro-dark">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="reveal">
+      <h2 class="section-title">Sobre nosotros</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+
+      <!-- Texto -->
+      <div class="space-y-5 text-coro-light/70 leading-relaxed">
+        <p>
+          El <strong class="text-coro-light">Coro Diatessaron</strong> es un grupo de cantantes afincado en
+          <strong class="text-coro-light">Molina de Segura (Murcia)</strong>, con una amplia trayectoria en el mundo
+          del canto coral. Nuestro repertorio abarca desde la música clásica y contemporánea hasta propuestas
+          temáticas que sorprenden y emocionan al público.
+        </p>
+        <p>
+          Bajo la dirección de <strong class="text-coro-gold">Tomeu Quetgles</strong>, el coro ha desarrollado
+          una identidad musical propia que combina rigor técnico con pasión escénica, ofreciendo conciertos
+          que van más allá de la interpretación coral tradicional.
+        </p>
+        <p>
+          Si amas la música coral y quieres ser parte de nuestra familia, no dudes en ponerte en contacto con
+          nosotros a través del formulario o nuestras redes sociales.
+        </p>
+
+        <div class="pt-4 flex flex-wrap gap-4">
+          <a href="#contacto" class="btn-primary">Contactar</a>
+          <a
+            href="https://cultura.molinadesegura.es/directory/coro-diatessaron/"
+            target="_blank"
+            rel="noopener"
+            class="btn-outline"
+          >
+            Cultura Molina →
+          </a>
+        </div>
+      </div>
+
+      <!-- Estadísticas decorativas -->
+      <div class="grid grid-cols-2 gap-6">
+        {[
+          { num: '🎵', label: 'Amplio repertorio' },
+          { num: '🎤', label: 'Voces apasionadas' },
+          { num: '🏛️', label: 'Molina de Segura' },
+          { num: '🎼', label: 'Dir. Tomeu Quetgles' },
+        ].map(item => (
+          <div class="border border-coro-gold/20 p-6 text-center hover:border-coro-gold/50 transition-colors">
+            <div class="text-4xl mb-3">{item.num}</div>
+            <div class="text-coro-light/60 text-sm tracking-wide">{item.label}</div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>

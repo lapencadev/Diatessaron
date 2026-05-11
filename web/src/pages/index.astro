@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Conciertos from '../components/Conciertos.astro';
+import Videos from '../components/Videos.astro';
+import Galeria from '../components/Galeria.astro';
+import SobreNosotros from '../components/SobreNosotros.astro';
+import RedesSociales from '../components/RedesSociales.astro';
+import Contacto from '../components/Contacto.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Coro Diatessaron | Molina de Segura"
+  description="Grupo de cantantes con amplia experiencia coral dirigido por Tomeu Quetgles. Molina de Segura, Murcia."
+>
+  <Nav />
+  <main>
+    <Hero />
+    <Conciertos />
+    <Videos />
+    <Galeria />
+    <SobreNosotros />
+    <RedesSociales />
+    <Contacto />
+  </main>
+  <Footer />
+</Layout>

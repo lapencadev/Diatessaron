@@ -1,0 +1,144 @@
+---
+// INSTRUCCIONES:
+// 1. Copia tus fotos a /public/images/galeria/
+// 2. Añádelas en el array de abajo con su categoría
+// 3. Las categorías disponibles: 'conciertos' | 'ensayos' | 'convivencias' | 'todos'
+
+type Categoria = 'conciertos' | 'ensayos' | 'convivencias';
+
+interface Foto {
+  src: string;
+  alt: string;
+  categoria: Categoria;
+}
+
+const fotos: Foto[] = [
+  { src: '/images/galeria/foto8.jpg', alt: 'Concierto Diatessaron — escenario con iluminación azul', categoria: 'conciertos' },
+  { src: '/images/galeria/foto5.jpg', alt: 'Concierto Destellos — Northern Lights', categoria: 'conciertos' },
+  { src: '/images/galeria/foto7.jpg', alt: 'Coro Diatessaron en escena', categoria: 'conciertos' },
+  { src: '/images/galeria/foto1.jpg', alt: 'Concierto con orquesta en iglesia', categoria: 'conciertos' },
+  { src: '/images/galeria/foto2.jpg', alt: 'Concierto en iglesia', categoria: 'conciertos' },
+  { src: '/images/galeria/foto3.jpg', alt: 'Concierto de Navidad en el teatro', categoria: 'conciertos' },
+  { src: '/images/galeria/foto4.jpg', alt: 'Coro Diatessaron tras bastidores', categoria: 'conciertos' },
+  { src: '/images/galeria/foto6.jpg', alt: 'Foto de grupo del coro', categoria: 'convivencias' },
+];
+
+const hasFotos = fotos.length > 0;
+
+const categorias: { id: string; label: string }[] = [
+  { id: 'todos', label: 'Todos' },
+  { id: 'conciertos', label: 'Conciertos' },
+  { id: 'ensayos', label: 'Ensayos' },
+  { id: 'convivencias', label: 'Convivencias' },
+];
+---
+
+<section id="galeria" class="py-24 px-4 bg-coro-gray overflow-hidden">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="reveal">
+      <h2 class="section-title">Galería</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    {hasFotos ? (
+      <div class="reveal reveal-delay-1">
+        <!-- Filtros por categoría -->
+        <div id="galeria-filtros" class="flex flex-wrap gap-3 mb-10">
+          {categorias.map(cat => (
+            <button
+              data-cat={cat.id}
+              class={`filtro-btn px-5 py-2 text-xs tracking-widest uppercase border transition-all duration-200 ${
+                cat.id === 'todos'
+                  ? 'border-coro-gold bg-coro-gold text-coro-dark'
+                  : 'border-coro-gold/30 text-coro-light/50 hover:border-coro-gold/60 hover:text-coro-light'
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        <!-- Swiper carousel -->
+        <div class="swiper galeria-swiper">
+          <div class="swiper-wrapper">
+            {fotos.map(foto => (
+              <div class="swiper-slide" data-categoria={foto.categoria}>
+                <div class="relative overflow-hidden aspect-[4/3] group cursor-pointer">
+                  <img
+                    src={foto.src}
+                    alt={foto.alt}
+                    loading="lazy"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <span class="text-coro-light text-sm font-light" style="font-family: 'Cormorant Garamond', serif;">{foto.alt}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div class="swiper-pagination mt-6"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
+    ) : (
+      <!-- Placeholder mientras no hay fotos -->
+      <div class="reveal reveal-delay-1 border border-dashed border-coro-gold/20 p-20 text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mx-auto mb-5 text-coro-gold/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <p class="text-coro-light/30 text-sm tracking-widest uppercase">Galería próximamente</p>
+        <p class="text-coro-light/20 text-xs mt-2">Añade tus fotos a /public/images/galeria/</p>
+      </div>
+    )}
+
+  </div>
+</section>
+
+<!-- Swiper CSS + JS desde CDN (solo si hay fotos) -->
+{hasFotos && (
+  <>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" is:inline></script>
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        const swiper = new Swiper('.galeria-swiper', {
+          slidesPerView: 1,
+          spaceBetween: 16,
+          loop: true,
+          autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
+          pagination: { el: '.swiper-pagination', clickable: true },
+          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+          breakpoints: {
+            640:  { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          },
+        });
+
+        // Filtros por categoría
+        document.querySelectorAll('.filtro-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const cat = btn.dataset.cat;
+
+            // Actualizar botones activos
+            document.querySelectorAll('.filtro-btn').forEach(b => {
+              b.classList.remove('bg-coro-gold', 'text-coro-dark', 'border-coro-gold');
+              b.classList.add('border-coro-gold/30', 'text-coro-light/50');
+            });
+            btn.classList.add('bg-coro-gold', 'text-coro-dark', 'border-coro-gold');
+            btn.classList.remove('border-coro-gold/30', 'text-coro-light/50');
+
+            // Filtrar slides
+            swiper.slides.forEach(slide => {
+              const slideCat = slide.dataset.categoria;
+              slide.style.display = (cat === 'todos' || slideCat === cat) ? '' : 'none';
+            });
+            swiper.update();
+          });
+        });
+      });
+    </script>
+  </>
+)}

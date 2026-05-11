@@ -1,0 +1,92 @@
+---
+// Datos de conciertos — edita aquí para añadir/quitar
+const proximos = [
+  {
+    titulo: 'CONEXIONES',
+    fecha: 'Próximamente',
+    lugar: 'Murcia',
+    descripcion: 'Concierto CONEXIONES en Murcia. Un viaje musical que une estilos y épocas.',
+    entradas: 'https://www.bacantix.com/Entradas/WebForms/Forms/Venta.aspx?id=AuMurcia&codigo=000002002000597002985',
+    cartel: null, // Ruta a imagen: '/images/carteles/conexiones.jpg'
+  },
+];
+
+const pasados = [
+  {
+    titulo: 'Western',
+    fecha: '2024',
+    lugar: 'Molina de Segura',
+    descripcion: 'Un espectacular concierto temático donde el Coro Diatessaron recreó la música del lejano Oeste.',
+    video: 'https://youtu.be/r-h7S0uo7VY?si=E9By6ueXUJOZFacV',
+    cartel: null,
+  },
+  {
+    titulo: 'Destellos',
+    fecha: '2023',
+    lugar: 'Molina de Segura',
+    descripcion: 'Programa que incluyó obras de Ola Gjeilo y Josep Vila bajo la dirección de Tomeu Quetgles.',
+    video: null,
+    cartel: null,
+  },
+];
+---
+
+<section id="conciertos" class="py-24 px-4 bg-coro-gray">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Título -->
+    <div class="reveal">
+      <h2 class="section-title">Conciertos</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <!-- Próximos -->
+    {proximos.length > 0 && (
+      <div class="mb-16">
+        <h3 class="text-lg text-coro-gold/60 uppercase tracking-[0.25em] mb-8 font-light reveal reveal-delay-1">Próximos</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          {proximos.map(c => (
+            <div class="reveal border border-coro-gold/30 bg-coro-dark/50 p-6 md:p-8 flex flex-col gap-4 hover:border-coro-gold/60 transition-colors group" style="box-shadow: 0 0 0 0 rgba(201,168,76,0); transition: box-shadow 0.4s, border-color 0.3s;" onmouseenter="this.style.boxShadow='0 0 30px -5px rgba(201,168,76,0.15)'" onmouseleave="this.style.boxShadow='0 0 0 0 rgba(201,168,76,0)'">
+              {c.cartel && (
+                <img src={c.cartel} alt={`Cartel ${c.titulo}`} class="w-full object-cover rounded-sm mb-2" />
+              )}
+              <div>
+                <span class="text-coro-gold text-xs tracking-widest uppercase">{c.fecha} · {c.lugar}</span>
+                <h4 class="text-2xl font-serif text-coro-light mt-1 mb-2">{c.titulo}</h4>
+                <p class="text-coro-light/60 text-sm leading-relaxed">{c.descripcion}</p>
+              </div>
+              {c.entradas && (
+                <a href={c.entradas} target="_blank" rel="noopener" class="btn-primary self-start mt-2">
+                  🎟️ Comprar entradas
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Pasados -->
+    <div>
+      <h3 class="text-lg text-coro-gold/60 uppercase tracking-[0.25em] mb-8 font-light reveal">Pasados</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {pasados.map(c => (
+          <div class="border border-white/10 bg-coro-dark/30 p-6 flex flex-col gap-3 hover:border-coro-gold/30 transition-colors">
+            {c.cartel && (
+              <img src={c.cartel} alt={`Cartel ${c.titulo}`} class="w-full object-cover rounded-sm mb-1" />
+            )}
+            <span class="text-coro-gold/60 text-xs tracking-widest uppercase">{c.fecha} · {c.lugar}</span>
+            <h4 class="text-xl font-serif text-coro-light">{c.titulo}</h4>
+            <p class="text-coro-light/50 text-sm leading-relaxed">{c.descripcion}</p>
+            {c.video && (
+              <a href={c.video} target="_blank" rel="noopener" class="text-coro-gold text-sm hover:underline mt-auto">
+                Ver vídeo →
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
