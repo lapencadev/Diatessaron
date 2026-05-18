@@ -1,92 +1,208 @@
 ---
-// Datos de conciertos — edita aquí para añadir/quitar
-const proximos = [
-  {
-    titulo: 'CONEXIONES',
-    fecha: 'Próximamente',
-    lugar: 'Murcia',
-    descripcion: 'Concierto CONEXIONES en Murcia. Un viaje musical que une estilos y épocas.',
-    entradas: 'https://www.bacantix.com/Entradas/WebForms/Forms/Venta.aspx?id=AuMurcia&codigo=000002002000597002985',
-    cartel: null, // Ruta a imagen: '/images/carteles/conexiones.jpg'
-  },
-];
-
-const pasados = [
-  {
-    titulo: 'Western',
-    fecha: '2024',
-    lugar: 'Molina de Segura',
-    descripcion: 'Un espectacular concierto temático donde el Coro Diatessaron recreó la música del lejano Oeste.',
-    video: 'https://youtu.be/r-h7S0uo7VY?si=E9By6ueXUJOZFacV',
-    cartel: null,
-  },
-  {
-    titulo: 'Destellos',
-    fecha: '2023',
-    lugar: 'Molina de Segura',
-    descripcion: 'Programa que incluyó obras de Ola Gjeilo y Josep Vila bajo la dirección de Tomeu Quetgles.',
-    video: null,
-    cartel: null,
-  },
-];
+// Programa actual — edita aquí para actualizar
+const programa = {
+  titulo: 'CONEXIONES',
+  subtitulo: '15 años conectando emociones',
+  descripcion: 'Un viaje musical a través de compositores católicos, ortodoxos, judíos y protestantes. El programa más personal de nuestra historia, que celebra 15 años de voces, música y emociones compartidas.',
+  director: 'Tomeu Quetgles-Roca',
+  cartelPrincipal: '/images/carteles/cartel auditorio.jpeg',
+  fechas: [
+    {
+      fechaISO: '2026-05-17',
+      fechaTexto: 'Dom 17 de mayo',
+      hora: 'Tras la misa de 12h',
+      lugar: 'Iglesia de San Isidro Labrador',
+      ciudad: 'San Isidro · Alicante',
+      entradas: null,
+    },
+    {
+      fechaISO: '2026-05-19',
+      fechaTexto: 'Mar 19 de mayo',
+      hora: null,
+      lugar: 'Iglesia Conventual de Santa Ana',
+      ciudad: 'Murcia',
+      entradas: null,
+    },
+    {
+      fechaISO: '2026-05-30',
+      fechaTexto: 'Sáb 30 de mayo',
+      hora: '20:00 h',
+      lugar: 'Auditorio Víctor Villegas',
+      ciudad: 'Murcia',
+      entradas: 'https://www.bacantix.com/Entradas/WebForms/Forms/Venta.aspx?id=AuMurcia&codigo=000002002000597002985',
+    },
+  ],
+};
 ---
 
 <section id="conciertos" class="py-24 px-4 bg-coro-gray">
   <div class="max-w-6xl mx-auto">
 
-    <!-- Título -->
     <div class="reveal">
       <h2 class="section-title">Conciertos</h2>
       <div class="section-divider"></div>
     </div>
 
-    <!-- Próximos -->
-    {proximos.length > 0 && (
-      <div class="mb-16">
-        <h3 class="text-lg text-coro-gold/60 uppercase tracking-[0.25em] mb-8 font-light reveal reveal-delay-1">Próximos</h3>
-        <div class="grid md:grid-cols-2 gap-6">
-          {proximos.map(c => (
-            <div class="reveal border border-coro-gold/30 bg-coro-dark/50 p-6 md:p-8 flex flex-col gap-4 hover:border-coro-gold/60 transition-colors group" style="box-shadow: 0 0 0 0 rgba(201,168,76,0); transition: box-shadow 0.4s, border-color 0.3s;" onmouseenter="this.style.boxShadow='0 0 30px -5px rgba(201,168,76,0.15)'" onmouseleave="this.style.boxShadow='0 0 0 0 rgba(201,168,76,0)'">
-              {c.cartel && (
-                <img src={c.cartel} alt={`Cartel ${c.titulo}`} class="w-full object-cover rounded-sm mb-2" />
-              )}
-              <div>
-                <span class="text-coro-gold text-xs tracking-widest uppercase">{c.fecha} · {c.lugar}</span>
-                <h4 class="text-2xl font-serif text-coro-light mt-1 mb-2">{c.titulo}</h4>
-                <p class="text-coro-light/60 text-sm leading-relaxed">{c.descripcion}</p>
-              </div>
-              {c.entradas && (
-                <a href={c.entradas} target="_blank" rel="noopener" class="btn-primary self-start mt-2">
-                  🎟️ Comprar entradas
-                </a>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    )}
-
-    <!-- Pasados -->
-    <div>
-      <h3 class="text-lg text-coro-gold/60 uppercase tracking-[0.25em] mb-8 font-light reveal">Pasados</h3>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {pasados.map(c => (
-          <div class="border border-white/10 bg-coro-dark/30 p-6 flex flex-col gap-3 hover:border-coro-gold/30 transition-colors">
-            {c.cartel && (
-              <img src={c.cartel} alt={`Cartel ${c.titulo}`} class="w-full object-cover rounded-sm mb-1" />
-            )}
-            <span class="text-coro-gold/60 text-xs tracking-widest uppercase">{c.fecha} · {c.lugar}</span>
-            <h4 class="text-xl font-serif text-coro-light">{c.titulo}</h4>
-            <p class="text-coro-light/50 text-sm leading-relaxed">{c.descripcion}</p>
-            {c.video && (
-              <a href={c.video} target="_blank" rel="noopener" class="text-coro-gold text-sm hover:underline mt-auto">
-                Ver vídeo →
-              </a>
-            )}
+    <!-- Cartel como objeto principal -->
+    <div class="reveal reveal-delay-1 flex flex-col items-center" id="programa-block">
+      <button
+        id="abrir-modal"
+        class="group relative focus:outline-none focus-visible:ring-1 focus-visible:ring-coro-gold/60"
+        aria-haspopup="dialog"
+        aria-label={`Ver fechas de ${programa.titulo}`}
+      >
+        <div class="relative overflow-hidden" style="max-width: 400px;">
+          <img
+            src={programa.cartelPrincipal}
+            alt={`Cartel del programa ${programa.titulo} — ${programa.subtitulo}. Dirección: ${programa.director}.`}
+            class="w-full object-contain"
+            style="max-height: 580px;"
+          />
+          <!-- Hover / tap overlay -->
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <span class="text-coro-light text-xs tracking-[0.3em] uppercase border border-coro-light/40 px-6 py-3">Ver fechas</span>
           </div>
-        ))}
-      </div>
+        </div>
+      </button>
+
+      <!-- Indicador siempre visible (ayuda en móvil) -->
+      <p class="mt-4 text-coro-light/25 text-xs tracking-[0.25em] uppercase">
+        Toca para ver las fechas
+      </p>
+    </div>
+
+    <!-- Aviso sin próximos -->
+    <div id="sin-programa" class="hidden text-center py-16 border border-coro-gold/15">
+      <p class="text-coro-light/40 text-sm tracking-wide">Próximamente anunciaremos el nuevo programa.</p>
+      <p class="text-coro-light/25 text-xs mt-1">Síguenos en redes para estar al día.</p>
     </div>
 
   </div>
 </section>
+
+<!-- Modal de fechas -->
+<div
+  id="modal-concierto"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-titulo"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-4"
+  style="background: rgba(8,8,8,0.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);"
+>
+  <div class="relative w-full max-w-lg bg-coro-dark border border-coro-gold/20 overflow-y-auto" style="max-height: 90vh; box-shadow: 0 0 80px -20px rgba(201,168,76,0.12);">
+
+    <!-- Cerrar -->
+    <button
+      id="cerrar-modal"
+      class="absolute top-5 right-5 text-coro-light/30 hover:text-coro-gold transition-colors z-10"
+      aria-label="Cerrar"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <div class="p-8 md:p-10">
+
+      <!-- Cabecera -->
+      <p class="text-coro-gold text-xs tracking-[0.3em] uppercase mb-2">Programa actual · Dir. {programa.director}</p>
+      <h3 id="modal-titulo" class="font-serif text-4xl md:text-5xl text-coro-light font-light leading-none mb-1">{programa.titulo}</h3>
+      <p class="text-coro-gold/60 text-xs tracking-wider uppercase mb-5">{programa.subtitulo}</p>
+      <p class="text-coro-light/50 text-sm leading-relaxed mb-8 border-l border-coro-gold/20 pl-4">{programa.descripcion}</p>
+
+      <!-- Fechas -->
+      <p class="text-xs tracking-[0.25em] uppercase text-coro-light/25 mb-3">Fechas</p>
+      <div id="modal-fechas-list">
+        {programa.fechas.map(f => (
+          <div
+            class="modal-fecha-item flex items-center justify-between gap-4 py-4 border-t border-coro-gold/10 last:border-b"
+            data-fecha={f.fechaISO}
+          >
+            <div class="flex-1 min-w-0">
+              <div class="flex items-baseline gap-2 flex-wrap">
+                <span class="text-coro-gold text-sm">{f.fechaTexto}</span>
+                {f.hora && <span class="text-coro-light/35 text-xs">{f.hora}</span>}
+              </div>
+              <p class="text-coro-light/70 text-sm mt-0.5">{f.lugar}</p>
+              <p class="text-coro-light/35 text-xs">{f.ciudad}</p>
+            </div>
+            <div class="flex-shrink-0">
+              {f.entradas
+                ? <a href={f.entradas} target="_blank" rel="noopener" class="btn-primary text-xs px-4 py-2 whitespace-nowrap">Entradas</a>
+                : <span class="text-coro-light/25 text-xs tracking-widest uppercase">Libre</span>
+              }
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Marcar fechas pasadas en el modal
+    const fechaItems = document.querySelectorAll('.modal-fecha-item');
+    let allPast = true;
+
+    fechaItems.forEach(item => {
+      const raw = (item as HTMLElement).dataset.fecha!;
+      const [y, m, d] = raw.split('-').map(Number);
+      const fecha = new Date(y, m - 1, d);
+      if (fecha < today) {
+        item.classList.add('opacity-35', 'line-through-fecha');
+      } else {
+        allPast = false;
+      }
+    });
+
+    // Si todas las fechas han pasado, ocultar el cartel y mostrar aviso
+    if (allPast) {
+      document.getElementById('programa-block')?.classList.add('hidden');
+      document.getElementById('sin-programa')?.classList.remove('hidden');
+    }
+
+    // Modal — abrir / cerrar
+    const modal = document.getElementById('modal-concierto')!;
+    const abrirBtn = document.getElementById('abrir-modal')!;
+    const cerrarBtn = document.getElementById('cerrar-modal')!;
+
+    function openModal() {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      cerrarBtn.focus();
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+      abrirBtn.focus();
+    }
+
+    abrirBtn.addEventListener('click', openModal);
+    cerrarBtn.addEventListener('click', closeModal);
+
+    // Click fuera del panel
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+    });
+  });
+</script>
+
+<style>
+  .line-through-fecha .text-coro-gold {
+    text-decoration: line-through;
+    text-decoration-color: rgba(201,168,76,0.35);
+  }
+</style>

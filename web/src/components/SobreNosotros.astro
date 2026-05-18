@@ -9,18 +9,18 @@
       <div class="section-divider"></div>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-12 items-center">
+    <div class="grid md:grid-cols-2 gap-16 items-start">
 
       <!-- Texto -->
-      <div class="space-y-5 text-coro-light/70 leading-relaxed">
+      <div class="space-y-5 text-coro-light/65 leading-relaxed reveal reveal-delay-1">
         <p>
-          El <strong class="text-coro-light">Coro Diatessaron</strong> es un grupo de cantantes afincado en
-          <strong class="text-coro-light">Molina de Segura (Murcia)</strong>, con una amplia trayectoria en el mundo
+          El <strong class="text-coro-light font-normal">Coro Diatessaron</strong> es un grupo de cantantes afincado en
+          <strong class="text-coro-light font-normal">Molina de Segura (Murcia)</strong>, con una amplia trayectoria en el mundo
           del canto coral. Nuestro repertorio abarca desde la música clásica y contemporánea hasta propuestas
           temáticas que sorprenden y emocionan al público.
         </p>
         <p>
-          Bajo la dirección de <strong class="text-coro-gold">Tomeu Quetgles</strong>, el coro ha desarrollado
+          Bajo la dirección de <strong class="text-coro-gold font-normal">Tomeu Quetgles</strong>, el coro ha desarrollado
           una identidad musical propia que combina rigor técnico con pasión escénica, ofreciendo conciertos
           que van más allá de la interpretación coral tradicional.
         </p>
@@ -31,30 +31,41 @@
 
         <div class="pt-4 flex flex-wrap gap-4">
           <a href="#contacto" class="btn-primary">Contactar</a>
-          <a
-            href="https://cultura.molinadesegura.es/directory/coro-diatessaron/"
-            target="_blank"
-            rel="noopener"
-            class="btn-outline"
-          >
+          <a href="https://cultura.molinadesegura.es/directory/coro-diatessaron/" target="_blank" rel="noopener" class="btn-outline">
             Cultura Molina →
           </a>
         </div>
       </div>
 
-      <!-- Estadísticas decorativas -->
-      <div class="grid grid-cols-2 gap-6">
-        {[
-          { num: '🎵', label: 'Amplio repertorio' },
-          { num: '🎤', label: 'Voces apasionadas' },
-          { num: '🏛️', label: 'Molina de Segura' },
-          { num: '🎼', label: 'Dir. Tomeu Quetgles' },
-        ].map(item => (
-          <div class="border border-coro-gold/20 p-6 text-center hover:border-coro-gold/50 transition-colors">
-            <div class="text-4xl mb-3">{item.num}</div>
-            <div class="text-coro-light/60 text-sm tracking-wide">{item.label}</div>
+      <!-- Stats modernos -->
+      <div class="reveal reveal-delay-2">
+
+        <div class="grid grid-cols-2 gap-px bg-coro-gold/10">
+          {[
+            { num: '15', unit: 'años', label: 'de trayectoria' },
+            { num: '+25', unit: 'voces', label: 'en escena' },
+            { num: '2', unit: 'premios', label: 'en certámenes nacionales' },
+            { num: '2010', unit: '', label: 'Fundación del coro' },
+          ].map(s => (
+            <div class="bg-coro-dark p-7 hover:bg-white/[0.025] transition-colors duration-300">
+              <div class="flex items-baseline gap-1.5 mb-1">
+                <span class="font-serif text-4xl text-coro-gold font-light">{s.num}</span>
+                {s.unit && <span class="text-coro-gold/60 text-sm tracking-wider uppercase">{s.unit}</span>}
+              </div>
+              <p class="text-coro-light/40 text-xs tracking-wide">{s.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Badge FECOREM -->
+        <div class="mt-px bg-coro-dark p-5 flex items-center gap-4 hover:bg-white/[0.025] transition-colors duration-300" style="border: 1px solid rgba(201,168,76,0.1);">
+          <div class="w-px h-8 bg-coro-gold/30 flex-shrink-0"></div>
+          <div>
+            <p class="text-coro-light/60 text-xs tracking-widest uppercase">Miembros de</p>
+            <p class="text-coro-light/80 text-sm mt-0.5">Federación de Coros de la Región de Murcia · FECOREM</p>
           </div>
-        ))}
+        </div>
+
       </div>
 
     </div>

@@ -1,0 +1,235 @@
+---
+const programas = [
+  { año: 2025, titulo: 'CONEXIONES', subtitulo: '15º Aniversario', lugar: 'San Isidro · Santa Ana (Murcia) · Auditorio Víctor Villegas', descripcion: 'Repertorio de compositores católicos, ortodoxos, judíos y protestantes. Un programa que celebra 15 años de historia del coro y la música que une.', video: null, dossier: null, destacado: true },
+  { año: 2024, titulo: 'Western', subtitulo: null, lugar: 'Auditorio Víctor Villegas · Molina de Segura', descripcion: 'Un espectacular concierto temático donde el Coro Diatessaron recreó la música del lejano Oeste: de los negro spirituals a los ganadores del Grammy.', video: 'https://youtu.be/r-h7S0uo7VY?si=E9By6ueXUJOZFacV', dossier: null, destacado: false },
+  { año: 2023, titulo: 'Destellos', subtitulo: null, lugar: 'Molina de Segura', descripcion: 'Programa que incluyó obras de Ola Gjeilo y Josep Vila i Casañas bajo la dirección de Tomeu Quetgles-Roca.', video: null, dossier: null, destacado: false },
+  { año: 2022, titulo: 'Añadir título', subtitulo: null, lugar: 'Añadir lugar', descripcion: 'Descripción pendiente de añadir.', video: null, dossier: null, destacado: false },
+  { año: 2021, titulo: 'Añadir título', subtitulo: null, lugar: 'Añadir lugar', descripcion: 'Descripción pendiente de añadir.', video: null, dossier: null, destacado: false },
+  { año: 2020, titulo: 'Añadir título', subtitulo: null, lugar: 'Añadir lugar', descripcion: 'Descripción pendiente de añadir.', video: null, dossier: null, destacado: false },
+  { año: 2019, titulo: 'Añadir título', subtitulo: '★ 1er Premio · Fira Tots Sants, Cocentaina', lugar: 'Murcia · Cocentaina', descripcion: 'Año de grandes reconocimientos: primer premio en el 39° Certamen Coral Fira Tots Sants de Cocentaina.', video: null, dossier: null, destacado: true },
+  { año: 2018, titulo: 'Añadir título', subtitulo: null, lugar: 'Añadir lugar', descripcion: 'Descripción pendiente de añadir.', video: null, dossier: null, destacado: false },
+  { año: 2017, titulo: 'Añadir título', subtitulo: null, lugar: 'Añadir lugar', descripcion: 'Descripción pendiente de añadir.', video: null, dossier: null, destacado: false },
+  { año: 2016, titulo: 'Añadir título', subtitulo: null, lugar: 'Añadir lugar', descripcion: 'Descripción pendiente de añadir.', video: null, dossier: null, destacado: false },
+  { año: 2015, titulo: 'Añadir título', subtitulo: '5º Aniversario', lugar: 'Añadir lugar', descripcion: 'Descripción pendiente de añadir.', video: null, dossier: null, destacado: true },
+  { año: 2014, titulo: 'Añadir título', subtitulo: null, lugar: 'Añadir lugar', descripcion: 'Descripción pendiente de añadir.', video: null, dossier: null, destacado: false },
+  { año: 2013, titulo: 'Añadir título', subtitulo: null, lugar: 'Añadir lugar', descripcion: 'Descripción pendiente de añadir.', video: null, dossier: null, destacado: false },
+  { año: 2012, titulo: 'Añadir título', subtitulo: 'Incorporación a FECOREM', lugar: 'Región de Murcia', descripcion: 'Primer año como miembros de la Federación de Coros de la Región de Murcia (FECOREM).', video: null, dossier: null, destacado: false },
+  { año: 2011, titulo: 'Añadir título', subtitulo: null, lugar: 'Añadir lugar', descripcion: 'Descripción pendiente de añadir.', video: null, dossier: null, destacado: false },
+  { año: 2010, titulo: 'Fundación del coro', subtitulo: 'Octubre 2010', lugar: 'Molina de Segura', descripcion: 'Nace el Coro Diatessaron bajo la dirección de Tomeu Quetgles-Roca, con 13 cantantes con amplia experiencia coral.', video: null, dossier: null, destacado: true },
+];
+---
+
+<section id="historial" class="py-24 px-4 bg-coro-dark overflow-hidden">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="reveal">
+      <h2 class="section-title">Historial de programas</h2>
+      <div class="section-divider"></div>
+    </div>
+    <p class="text-coro-light/50 text-sm mb-20 reveal reveal-delay-1">15 años de música, voces y momentos compartidos.</p>
+
+    <!-- ── DESKTOP TIMELINE ── -->
+    <div class="hidden md:block relative" id="tl-desktop">
+
+      <!-- Línea vertical central -->
+      <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px"
+           style="background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.3) 5%, rgba(201,168,76,0.3) 95%, transparent);"></div>
+
+      {programas.map((p, i) => {
+        const isLeft = i % 2 === 0;
+        return (
+          <div class="tl-item relative flex items-start" style="margin-bottom: 0.5rem;">
+
+            <!-- Slot izquierdo (46%) -->
+            <div class="w-[46%] flex justify-end pr-0">
+              {isLeft && (
+                <div class="tl-card w-full flex items-start gap-0">
+                  <!-- Contenido de la card -->
+                  <button class="tl-btn flex-1 text-right group" aria-expanded="false" data-idx={`d-${i}`}>
+                    <div class="py-3 px-4 border border-transparent hover:border-coro-gold/15 hover:bg-white/[0.02] transition-all duration-300 rounded-sm">
+                      <div class="flex items-baseline justify-end gap-3">
+                        {p.subtitulo && (p.subtitulo.includes('Premio') || p.subtitulo.includes('Aniversario')) && (
+                          <span class="text-coro-gold text-xs">★</span>
+                        )}
+                        <span class={`font-serif leading-snug ${p.destacado ? 'text-coro-light text-lg' : 'text-coro-light/65 text-base'}`}>{p.titulo}</span>
+                        <span class={`font-serif tabular-nums flex-shrink-0 ${p.destacado ? 'text-coro-gold text-2xl' : 'text-coro-gold/45 text-lg'}`}>{p.año}</span>
+                      </div>
+                      {p.subtitulo && (
+                        <p class="text-coro-gold/55 text-xs mt-0.5 text-right">{p.subtitulo}</p>
+                      )}
+                    </div>
+                  </button>
+                  <!-- Rama horizontal (desde card hasta el centro) -->
+                  <div class="flex-shrink-0 self-center mt-0" style="width: calc(100% - 100% + 0px);">
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <!-- Centro (8%): rama + punto -->
+            <div class="w-[8%] flex-shrink-0 relative flex items-start justify-center" style="min-height: 3rem;">
+              <!-- Rama izquierda (entra desde la izquierda al punto) -->
+              {isLeft && (
+                <div class="absolute top-[1.35rem] h-px bg-coro-gold/30"
+                     style="left: 0; right: 50%;"></div>
+              )}
+              <!-- Rama derecha (sale del punto hacia la derecha) -->
+              {!isLeft && (
+                <div class="absolute top-[1.35rem] h-px bg-coro-gold/30"
+                     style="left: 50%; right: 0;"></div>
+              )}
+              <!-- Punto -->
+              <div class={`mt-[1.1rem] w-2.5 h-2.5 rounded-full border-2 z-10 flex-shrink-0 transition-all duration-300
+                ${p.destacado
+                  ? 'bg-coro-gold border-coro-gold shadow-[0_0_10px_rgba(201,168,76,0.4)]'
+                  : 'bg-coro-dark border-coro-gold/40'}`}>
+              </div>
+            </div>
+
+            <!-- Slot derecho (46%) -->
+            <div class="w-[46%] pl-0">
+              {!isLeft && (
+                <button class="tl-btn w-full text-left group" aria-expanded="false" data-idx={`d-${i}`}>
+                  <div class="py-3 px-4 border border-transparent hover:border-coro-gold/15 hover:bg-white/[0.02] transition-all duration-300 rounded-sm">
+                    <div class="flex items-baseline gap-3">
+                      <span class={`font-serif tabular-nums flex-shrink-0 ${p.destacado ? 'text-coro-gold text-2xl' : 'text-coro-gold/45 text-lg'}`}>{p.año}</span>
+                      <span class={`font-serif leading-snug ${p.destacado ? 'text-coro-light text-lg' : 'text-coro-light/65 text-base'}`}>{p.titulo}</span>
+                      {p.subtitulo && (p.subtitulo.includes('Premio') || p.subtitulo.includes('Aniversario')) && (
+                        <span class="text-coro-gold text-xs">★</span>
+                      )}
+                    </div>
+                    {p.subtitulo && (
+                      <p class="text-coro-gold/55 text-xs mt-0.5">{p.subtitulo}</p>
+                    )}
+                  </div>
+                </button>
+              )}
+            </div>
+
+          </div>
+
+          <!-- Detalle expandible (desktop) — ocupa los 3 slots -->
+          <div id={`tl-detail-d-${i}`} class="hidden tl-detail">
+            <div class="flex">
+              <div class="w-[46%]"></div>
+              <div class="w-[8%]"></div>
+              <div class="w-[46%]">
+                {!isLeft && (
+                  <div class="px-4 pb-4 border-x border-b border-coro-gold/10 bg-white/[0.015] -mt-1">
+                    <p class="text-coro-light/35 text-xs mb-2">{p.lugar}</p>
+                    <p class="text-coro-light/60 text-sm leading-relaxed">{p.descripcion}</p>
+                    {(p.video || p.dossier) && (
+                      <div class="flex gap-5 mt-3">
+                        {p.video && <a href={p.video} target="_blank" rel="noopener" class="text-coro-gold text-xs hover:underline uppercase tracking-wide flex items-center gap-1"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Vídeo</a>}
+                        {p.dossier && <a href={p.dossier} target="_blank" rel="noopener" class="text-coro-light/40 hover:text-coro-gold text-xs uppercase tracking-wide transition-colors">Dossier</a>}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div class="flex">
+              <div class="w-[46%]">
+                {isLeft && (
+                  <div class="px-4 pb-4 border-x border-b border-coro-gold/10 bg-white/[0.015] -mt-1 text-right">
+                    <p class="text-coro-light/35 text-xs mb-2">{p.lugar}</p>
+                    <p class="text-coro-light/60 text-sm leading-relaxed">{p.descripcion}</p>
+                    {(p.video || p.dossier) && (
+                      <div class="flex gap-5 mt-3 justify-end">
+                        {p.video && <a href={p.video} target="_blank" rel="noopener" class="text-coro-gold text-xs hover:underline uppercase tracking-wide flex items-center gap-1"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Vídeo</a>}
+                        {p.dossier && <a href={p.dossier} target="_blank" rel="noopener" class="text-coro-light/40 hover:text-coro-gold text-xs uppercase tracking-wide transition-colors">Dossier</a>}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+              <div class="w-[8%]"></div>
+              <div class="w-[46%]"></div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- ── MOBILE TIMELINE ── -->
+    <div class="md:hidden relative pl-8" id="tl-mobile">
+      <!-- Línea izquierda -->
+      <div class="absolute left-3 top-0 bottom-0 w-px"
+           style="background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.3) 5%, rgba(201,168,76,0.3) 95%, transparent);"></div>
+
+      {programas.map((p, i) => (
+        <div class="tl-item-m relative mb-2">
+          <!-- Punto -->
+          <div class={`absolute -left-[1.375rem] top-[1.1rem] w-2.5 h-2.5 rounded-full border-2 z-10
+            ${p.destacado ? 'bg-coro-gold border-coro-gold' : 'bg-coro-dark border-coro-gold/40'}`}></div>
+
+          <!-- Card -->
+          <button class="tl-btn w-full text-left" aria-expanded="false" data-idx={`m-${i}`}>
+            <div class="py-2.5 px-3 border border-transparent hover:border-coro-gold/15 hover:bg-white/[0.02] transition-all duration-300">
+              <div class="flex items-baseline gap-2.5">
+                <span class={`font-serif tabular-nums flex-shrink-0 ${p.destacado ? 'text-coro-gold text-xl' : 'text-coro-gold/45 text-lg'}`}>{p.año}</span>
+                <span class={`font-serif leading-snug ${p.destacado ? 'text-coro-light text-base' : 'text-coro-light/65 text-sm'}`}>{p.titulo}</span>
+              </div>
+              {p.subtitulo && <p class="text-coro-gold/55 text-xs mt-0.5 pl-0.5">{p.subtitulo}</p>}
+            </div>
+          </button>
+
+          <!-- Detalle expandible -->
+          <div id={`tl-detail-m-${i}`} class="hidden tl-detail px-3 pb-3 border-x border-b border-coro-gold/10 bg-white/[0.015]">
+            <p class="text-coro-light/35 text-xs mb-1.5">{p.lugar}</p>
+            <p class="text-coro-light/60 text-sm leading-relaxed">{p.descripcion}</p>
+            {(p.video || p.dossier) && (
+              <div class="flex gap-4 mt-2.5">
+                {p.video && <a href={p.video} target="_blank" rel="noopener" class="text-coro-gold text-xs hover:underline uppercase tracking-wide">▶ Vídeo</a>}
+                {p.dossier && <a href={p.dossier} target="_blank" rel="noopener" class="text-coro-light/40 hover:text-coro-gold text-xs uppercase tracking-wide transition-colors">Dossier</a>}
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Expand/collapse on click
+  document.querySelectorAll('.tl-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = (btn as HTMLElement).dataset.idx!;
+      const detailD = document.getElementById(`tl-detail-d-${idx.replace(/^[dm]-/, '')}`);
+      const detailM = document.getElementById(`tl-detail-m-${idx.replace(/^[dm]-/, '')}`);
+      const target = idx.startsWith('d-') ? detailD : detailM;
+      if (!target) return;
+
+      const isOpen = !target.classList.contains('hidden');
+      target.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+  // Scroll reveal: slide in from sides
+  const isMobile = () => window.innerWidth < 768;
+  const allItems = document.querySelectorAll('.tl-item, .tl-item-m');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target as HTMLElement;
+        el.style.opacity = '1';
+        el.style.transform = 'translateX(0)';
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+  allItems.forEach((el, i) => {
+    const htmlEl = el as HTMLElement;
+    const isLeft = i % 2 === 0;
+    const offset = isMobile() ? '-16px' : (isLeft ? '-24px' : '24px');
+    htmlEl.style.opacity = '0';
+    htmlEl.style.transform = `translateX(${offset})`;
+    htmlEl.style.transition = `opacity 0.5s ease ${i * 0.045}s, transform 0.5s ease ${i * 0.045}s`;
+    observer.observe(el);
+  });
+</script>
