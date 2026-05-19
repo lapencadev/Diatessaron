@@ -145,12 +145,6 @@ const años = [
                   <button class="tl-btn flex-1 text-right group" aria-expanded="false" data-idx={`d-${i}`}>
                     <div class="py-3 px-4 border border-transparent hover:border-coro-gold/15 hover:bg-white/[0.02] transition-all duration-300 rounded-sm">
                       <div class="flex items-baseline justify-end gap-3">
-                        {prog?.subtitulo && (prog.subtitulo.includes('Premio') || prog.subtitulo.includes('Aniversario')) && (
-                          <span class="text-coro-gold text-xs">★</span>
-                        )}
-                        {a.otros.some(e => e.tipo === 'premio') && !prog?.subtitulo?.includes('Premio') && (
-                          <span class="text-coro-gold text-xs">★</span>
-                        )}
                         <span class={`font-serif leading-snug ${a.destacado ? 'text-coro-light text-lg' : 'text-coro-light/65 text-base'}`}>{prog?.titulo}</span>
                         <span class={`font-serif tabular-nums flex-shrink-0 ${a.destacado ? 'text-coro-gold text-2xl' : 'text-coro-gold/45 text-lg'}`}>{a.año}</span>
                       </div>
@@ -169,17 +163,15 @@ const años = [
             <!-- Centro (8%): rama + punto -->
             <div class="w-[8%] flex-shrink-0 relative flex items-start justify-center" style="min-height: 3rem;">
               {isLeft && (
-                <div class="absolute top-[1.35rem] h-px bg-coro-gold/30"
-                     style="left: 0; right: 50%;"></div>
+                <div class="absolute h-px bg-coro-gold/30"
+                     style="top: 1.5rem; left: 0; right: 50%;"></div>
               )}
               {!isLeft && (
-                <div class="absolute top-[1.35rem] h-px bg-coro-gold/30"
-                     style="left: 50%; right: 0;"></div>
+                <div class="absolute h-px bg-coro-gold/30"
+                     style="top: 1.5rem; left: 50%; right: 0;"></div>
               )}
-              <div class={`mt-[1.1rem] w-2.5 h-2.5 rounded-full border-2 z-10 flex-shrink-0 transition-all duration-300
-                ${a.destacado
-                  ? 'bg-coro-gold border-coro-gold shadow-[0_0_10px_rgba(201,168,76,0.4)]'
-                  : 'bg-coro-dark border-coro-gold/40'}`}>
+              <div class={`w-2.5 h-2.5 rounded-full border-2 z-10 flex-shrink-0 transition-all duration-300 ${a.destacado ? 'bg-coro-gold border-coro-gold shadow-[0_0_10px_rgba(201,168,76,0.4)]' : 'bg-coro-dark border-coro-gold/40'}`}
+                   style="margin-top: 1.175rem;">
               </div>
             </div>
 
@@ -191,12 +183,6 @@ const años = [
                     <div class="flex items-baseline gap-3">
                       <span class={`font-serif tabular-nums flex-shrink-0 ${a.destacado ? 'text-coro-gold text-2xl' : 'text-coro-gold/45 text-lg'}`}>{a.año}</span>
                       <span class={`font-serif leading-snug ${a.destacado ? 'text-coro-light text-lg' : 'text-coro-light/65 text-base'}`}>{prog?.titulo}</span>
-                      {prog?.subtitulo && (prog.subtitulo.includes('Premio') || prog.subtitulo.includes('Aniversario')) && (
-                        <span class="text-coro-gold text-xs">★</span>
-                      )}
-                      {a.otros.some(e => e.tipo === 'premio') && !prog?.subtitulo?.includes('Premio') && (
-                        <span class="text-coro-gold text-xs">★</span>
-                      )}
                     </div>
                     {prog?.subtitulo && (
                       <p class="text-coro-gold/55 text-xs mt-0.5">{prog.subtitulo}</p>
@@ -320,7 +306,7 @@ const años = [
         return (
           <div class="tl-item-m relative mb-6">
             <!-- Punto -->
-            <div class={`absolute -left-[1.375rem] top-[1.1rem] w-2.5 h-2.5 rounded-full border-2 z-10
+            <div class={`absolute -left-[1.5625rem] top-[1.2rem] w-2.5 h-2.5 rounded-full border-2 z-10
               ${a.destacado ? 'bg-coro-gold border-coro-gold' : 'bg-coro-dark border-coro-gold/40'}`}></div>
 
             <!-- Card -->
