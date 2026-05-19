@@ -30,5 +30,34 @@ const {
   </head>
   <body class="antialiased">
     <slot />
+
+    <!-- Botón volver arriba -->
+    <button
+      id="back-to-top"
+      aria-label="Volver arriba"
+      class="fixed bottom-8 right-6 z-50 w-10 h-10 flex items-center justify-center border border-coro-gold/40 text-coro-gold bg-coro-dark/90 backdrop-blur-sm rounded-sm opacity-0 pointer-events-none transition-all duration-300 hover:bg-coro-gold hover:text-coro-dark"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+
+    <script>
+      const btn = document.getElementById('back-to-top')!;
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+          btn.classList.remove('opacity-0', 'pointer-events-none');
+          btn.classList.add('opacity-100');
+        } else {
+          btn.classList.add('opacity-0', 'pointer-events-none');
+          btn.classList.remove('opacity-100');
+        }
+      }, { passive: true });
+
+      btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    </script>
   </body>
 </html>
