@@ -88,33 +88,70 @@
         Enviar mensaje
       </button>
 
-      <!-- Mensaje de éxito (visible tras envío JS) -->
-      <div id="form-success" class="hidden text-center py-4 text-coro-gold border border-coro-gold/30 rounded-sm">
-        ✅ Mensaje enviado correctamente. ¡Gracias!
-      </div>
     </form>
 
   </div>
 </section>
 
+<!-- Toast de notificación -->
+<div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-6 py-4 rounded-sm shadow-lg border opacity-0 pointer-events-none transition-all duration-300 translate-y-4" role="alert">
+  <span id="toast-icon" class="text-xl"></span>
+  <span id="toast-msg" class="text-sm tracking-wide"></span>
+</div>
+
 <script>
   const form = document.getElementById('contact-form') as HTMLFormElement;
-  const success = document.getElementById('form-success')!;
+  const toast = document.getElementById('toast')!;
+  const toastIcon = document.getElementById('toast-icon')!;
+  const toastMsg = document.getElementById('toast-msg')!;
+
+  function showToast(type: 'success' | 'error', message: string) {
+    if (type === 'success') {
+      toast.className = toast.className.replace(/bg-\S+|border-\S+|text-\S+/g, '');
+      toast.classList.add('bg-coro-dark', 'border-coro-gold/40', 'text-coro-light');
+      toastIcon.textContent = '✓';
+      toastIcon.className = 'text-xl text-coro-gold';
+    } else {
+      toast.classList.add('bg-coro-dark', 'border-red-500/40', 'text-coro-light');
+      toastIcon.textContent = '✕';
+      toastIcon.className = 'text-xl text-red-400';
+    }
+    toastMsg.textContent = message;
+    toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+    toast.classList.add('opacity-100', 'translate-y-0');
+
+    setTimeout(() => {
+      toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+      toast.classList.remove('opacity-100', 'translate-y-0');
+    }, 5000);
+  }
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
     const data = new FormData(form);
 
     try {
-      await fetch('/', {
+      const res = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(data as any).toString(),
       });
-      form.classList.add('hidden');
-      success.classList.remove('hidden');
-    } catch (err) {
-      alert('Error al enviar. Por favor, inténtalo de nuevo.');
+
+      if (res.ok) {
+        form.reset();
+        showToast('success', 'Mensaje enviado correctamente. ¡Gracias, te responderemos pronto!');
+      } else {
+        showToast('error', 'No se pudo enviar el mensaje. Por favor, inténtalo de nuevo.');
+      }
+    } catch {
+      showToast('error', 'Error de conexión. Comprueba tu internet e inténtalo de nuevo.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Enviar mensaje';
     }
   });
 </script>
