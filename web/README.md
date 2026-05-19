@@ -121,7 +121,21 @@ web/
 
 ---
 
+## Variables de entorno
+
+Copia `.env.example` a `.env` y rellena los valores antes de desarrollar en local.  
+En producción se configuran en **Netlify → Site configuration → Environment variables**.
+
+| Variable | Descripción |
+|---|---|
+| `PUBLIC_EMAILJS_SERVICE_ID` | ID del servicio de EmailJS |
+| `PUBLIC_EMAILJS_TEMPLATE_ID` | ID de la plantilla de EmailJS |
+| `PUBLIC_EMAILJS_PUBLIC_KEY` | Clave pública de EmailJS |
+
+---
+
 ## Despliegue
 
-El sitio se despliega automáticamente en Netlify cuando se hace push a `main`.  
-El formulario de contacto llega a **corodiatessaron.rrss@gmail.com** (configurado en Netlify → Forms → Notifications).
+El sitio se despliega automáticamente en Netlify cuando se hace push a `main`.
+
+El formulario de contacto guarda cada envío en **Netlify → Forms** y manda una notificación por email a **corodiatessaron.rrss@gmail.com** mediante EmailJS.

@@ -1,4 +1,7 @@
 ---
+const EMAILJS_SERVICE_ID = import.meta.env.PUBLIC_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY;
 ---
 
 <section id="contacto" class="py-24 px-4 bg-coro-dark">
@@ -22,6 +25,9 @@
       netlify-honeypot="bot-field"
       class="space-y-6"
       id="contact-form"
+      data-ejs-service={EMAILJS_SERVICE_ID}
+      data-ejs-template={EMAILJS_TEMPLATE_ID}
+      data-ejs-key={EMAILJS_PUBLIC_KEY}
     >
       <!-- Honeypot anti-spam (oculto) -->
       <input type="hidden" name="form-name" value="contacto" />
@@ -100,10 +106,14 @@
 </div>
 
 <script>
+  import emailjs from '@emailjs/browser';
+
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const toast = document.getElementById('toast')!;
   const toastIcon = document.getElementById('toast-icon')!;
   const toastMsg = document.getElementById('toast-msg')!;
+
+  emailjs.init(form.dataset.ejsKey!);
 
   function showToast(type: 'success' | 'error', message: string) {
     if (type === 'success') {
@@ -132,23 +142,20 @@
     btn.disabled = true;
     btn.textContent = 'Enviando...';
 
-    const data = new FormData(form);
-
     try {
-      const res = await fetch('/', {
+      const data = new FormData(form);
+      await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(data as any).toString(),
+        body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
       });
 
-      if (res.ok) {
-        form.reset();
-        showToast('success', 'Mensaje enviado correctamente. ¡Gracias, te responderemos pronto!');
-      } else {
-        showToast('error', 'No se pudo enviar el mensaje. Por favor, inténtalo de nuevo.');
-      }
+      await emailjs.sendForm(form.dataset.ejsService!, form.dataset.ejsTemplate!, form);
+
+      form.reset();
+      showToast('success', 'Mensaje enviado correctamente. ¡Gracias, te responderemos pronto!');
     } catch {
-      showToast('error', 'Error de conexión. Comprueba tu internet e inténtalo de nuevo.');
+      showToast('error', 'Error al enviar. Por favor, inténtalo de nuevo.');
     } finally {
       btn.disabled = false;
       btn.textContent = 'Enviar mensaje';
