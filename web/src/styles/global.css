@@ -20,12 +20,13 @@
 
 @layer components {
   .section-title {
-    @apply text-4xl md:text-5xl font-light text-coro-gold mb-3;
+    @apply text-4xl md:text-5xl lg:text-6xl font-light text-coro-gold mb-4;
     font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: 0.01em;
   }
 
   .section-divider {
-    @apply w-12 h-px bg-gradient-to-r from-coro-gold to-transparent mb-12;
+    @apply w-full h-px bg-coro-gold/15 mb-14;
   }
 
   .btn-primary {
