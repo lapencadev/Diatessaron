@@ -28,6 +28,15 @@ const conciertos = [
     entradas: 'https://www.bacantix.com/Entradas/WebForms/Forms/Venta.aspx?id=AuMurcia&codigo=000002002000597002985',
     cartel: '/images/carteles/cartel auditorio.jpeg',
   },
+  {
+    fechaISO: '2026-06-14',
+    fechaTexto: 'Dom 14 de junio',
+    hora: '20:30 h',
+    lugar: 'CEIP Fátima',
+    ciudad: 'Molina de Segura',
+    entradas: null,
+    cartel: '/images/carteles/cartel conexiones.jpg',
+  }
 ];
 
 const fechasJSON = JSON.stringify(conciertos.map(c => ({
@@ -160,7 +169,7 @@ const fechasJSON = JSON.stringify(conciertos.map(c => ({
             )}
             {c.entradas
               ? <a href={c.entradas} target="_blank" rel="noopener" class="btn-primary text-xs px-4 py-2 whitespace-nowrap">Entradas</a>
-              : <span class="text-coro-light/20 text-xs tracking-widest uppercase">Libre</span>
+              : <span class="text-coro-light/20 text-xs tracking-widest uppercase">Entrada libre</span>
             }
           </div>
         </div>

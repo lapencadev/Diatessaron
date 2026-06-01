@@ -16,45 +16,56 @@ npm run preview   # previsualiza el build estático
 
 ### Conciertos · `src/components/Conciertos.astro`
 
-Edita el objeto `programa` al principio del archivo:
+Edita el array `conciertos` al principio del archivo. Cada entrada tiene esta forma:
 
 ```js
-const programa = {
-  titulo: 'NOMBRE DEL PROGRAMA',
-  subtitulo: 'Subtítulo',
-  descripcion: 'Descripción del programa...',
-  director: 'Nombre Apellidos',
-  cartelPrincipal: '/images/carteles/nombre-cartel.jpg',
-  fechas: [
-    {
-      fechaISO: 'YYYY-MM-DD',   // formato exacto para el archivado automático
-      fechaTexto: 'Sáb 30 de mayo',
-      hora: '20:00 h',          // null si no hay hora confirmada
-      lugar: 'Nombre del lugar',
-      ciudad: 'Ciudad',
-      entradas: 'https://...',  // null si la entrada es libre
-    },
-  ],
-};
+const conciertos = [
+  {
+    fechaISO: 'YYYY-MM-DD',     // formato exacto para el archivado automático
+    fechaTexto: 'Sáb 30 de mayo',
+    hora: '20:00 h',             // null si no hay hora confirmada
+    lugar: 'Nombre del lugar',
+    ciudad: 'Ciudad',
+    entradas: 'https://...',     // null si la entrada es libre
+    cartel: '/images/carteles/nombre-cartel.jpg',  // null si no hay cartel
+  },
+];
 ```
 
 > Las fechas pasadas se marcan automáticamente en gris. Cuando todas hayan pasado, la sección muestra "Próximamente".
 
-Para añadir el cartel: copia el archivo a `public/images/carteles/` y actualiza `cartelPrincipal`.
+Para añadir un cartel: copia el archivo a `public/images/carteles/` y actualiza el campo `cartel`.
 
 ---
 
 ### Historial de programas · `src/components/Timeline.astro`
 
-Edita el array `entradas`. Cada entrada tiene esta forma:
+Edita el array `años`. Cada entrada tiene esta forma:
 
 ```js
 {
   año: 2024,
-  titulo: 'NOMBRE DEL PROGRAMA',
-  descripcion: 'Descripción breve.',
   destacado: false,   // true para años especiales (fundación, aniversarios, premios)
-  dossier: null,      // o ruta a un PDF: '/dossiers/programa-2024.pdf'
+  programa: {
+    titulo: 'NOMBRE DEL PROGRAMA',
+    subtitulo: null,              // o texto como '15º Aniversario'
+    lugar: 'Nombre del lugar',
+    descripcion: 'Descripción breve.',
+    video: null,                  // o URL completa de YouTube
+    dossier: null,                // o ruta a un PDF: '/dossiers/programa-2024.pdf'
+  },
+  otros: [
+    // colaboraciones u otros eventos del año (puede ser array vacío)
+    {
+      tipo: 'colaboracion',
+      titulo: 'Título del evento',
+      subtitulo: '2024',
+      lugar: 'Lugar',
+      descripcion: 'Descripción breve.',
+      video: null,
+      dossier: null,
+    },
+  ],
 },
 ```
 
@@ -89,19 +100,27 @@ Actualiza los enlaces e iconos si cambian los perfiles.
 
 ---
 
+### Sobre nosotros · `src/components/SobreNosotros.astro`
+
+El texto descriptivo del coro está escrito directamente en el HTML del componente. Edítalo ahí si cambia la descripción del coro.
+
+---
+
 ## Estructura de archivos
 
 ```
 web/
 ├── public/
+│   ├── favicon.svg
 │   ├── logo.png
 │   └── images/
 │       ├── galeria/        ← fotos de la galería
-│       └── carteles/       ← carteles de conciertos
+│       ├── carteles/       ← carteles de conciertos
+│       └── rrss.jpg        ← imagen Open Graph / redes sociales
 └── src/
     ├── components/         ← un archivo por sección
     ├── layouts/
-    │   └── Layout.astro    ← HTML base, SEO, fuentes
+    │   └── Layout.astro    ← HTML base, SEO, fuentes, Open Graph
     ├── pages/
     │   └── index.astro     ← monta todas las secciones
     └── styles/
