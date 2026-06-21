@@ -1,10 +1,17 @@
 ---
 const tipoLabel = (tipo: string) => ({
-  premio: '★ Premio',
-  colaboracion: '♦ Colaboración',
-  intercambio: '⇄ Intercambio',
-  concierto: '● Concierto',
+  premio: 'Premio',
+  colaboracion: 'Colaboración',
+  intercambio: 'Intercambio',
+  concierto: 'Concierto',
 }[tipo] ?? tipo);
+
+const tipoIcon = (tipo: string) => ({
+  premio: '★',
+  colaboracion: '♦',
+  intercambio: '⇄',
+  concierto: '●',
+}[tipo] ?? '');
 
 const años = [
   {
@@ -105,23 +112,23 @@ const años = [
         video: null,
         dossier: null,
       },
-      {
-        tipo: 'colaboracion',
-        titulo: 'Réquiem de John Rutter · Vox Musicalis',
-        subtitulo: null,
-        fecha: '2023',
-        lugar: 'Región de Murcia',
-        descripcion: 'Interpretación del Réquiem de John Rutter junto a la Coral Vox Musicalis de Totana y la Orquesta de Cámara de Cartagena.',
-        video: null,
-        dossier: null,
-      },
-      {
+    {
         tipo: 'intercambio',
         titulo: 'Intercambio coral "Aires de Primavera"',
         subtitulo: null,
         fecha: 'Mayo 2023',
         lugar: 'Molina de Segura · Murcia',
         descripcion: 'Intercambio regional con el Orfeón Murciano Fernádez Caballero, dirigido por Alfonso Serra.',
+        video: null,
+        dossier: null,
+      },
+      {
+        tipo: 'colaboracion',
+        titulo: 'Réquiem de John Rutter · Vox Musicalis',
+        subtitulo: null,
+        fecha: 'Marzo - Abril 2023',
+        lugar: 'Región de Murcia',
+        descripcion: 'Interpretación del Réquiem de John Rutter junto a la Coral Vox Musicalis de Totana y la Orquesta de Cámara de Cartagena.',
         video: null,
         dossier: null,
       },
@@ -470,7 +477,7 @@ const años = [
       subtitulo: 'Primeros ensayos',
       fecha: null,
       lugar: 'Salón de casa de Mónica',
-      descripcion: 'El Coro Diatessaron nació de un grupo de cantantes y amigos que se reunieron en torno al proyecto del director Tomeu Quetgles-Roca. En sus inicios, se estrenó con 14 coralistas pero en la actualidad la plantilla se compone ya de más de 30 personas.',
+      descripcion: 'El Coro Diatessaron nació de un grupo de cantantes y amigos que se reunieron en torno al proyecto del director Tomeu Quetgles-Roca. En sus inicios, se estrenó con 13 coralistas pero en la actualidad la plantilla se compone ya de más de 30 personas.',
       video: null,
       dossier: null,
     },
@@ -509,17 +516,17 @@ const años = [
                   <button class="tl-btn flex-1 text-right group" aria-expanded="false" data-idx={`d-${i}`}>
                     <div class="py-3 px-4 border border-transparent hover:border-coro-gold/15 hover:bg-white/[0.02] transition-all duration-300 rounded-sm">
                       <div class="flex items-baseline justify-end gap-3">
-                        <span class={`font-serif leading-snug ${a.destacado ? 'text-coro-light text-lg' : 'text-coro-light/65 text-base'}`}>{prog?.titulo}</span>
-                        <span class={`font-serif tabular-nums flex-shrink-0 ${a.destacado ? 'text-coro-gold text-2xl' : 'text-coro-gold/45 text-lg'}`}>{a.año}</span>
+                        <span class={`font-serif leading-snug text-xl ${a.destacado ? 'text-coro-light' : 'text-coro-light/85'}`}>{prog?.titulo}</span>
+                        <span class={`font-serif tabular-nums flex-shrink-0 text-3xl ${a.destacado ? 'text-coro-gold' : 'text-coro-gold/75'}`}>{a.año}</span>
                       </div>
                       {prog?.fecha && (
-                        <p class="text-coro-light/30 text-xs mt-0.5 text-right">{prog.fecha}</p>
+                        <p class="text-coro-light/65 text-sm mt-0.5 text-right">{prog.fecha}</p>
                       )}
                       {prog?.subtitulo && (
-                        <p class="text-coro-gold/55 text-xs mt-0.5 text-right">{prog.subtitulo}</p>
+                        <p class="text-coro-gold/85 text-xs mt-0.5 text-right">{prog.subtitulo}</p>
                       )}
                       {a.otros.length > 0 && (
-                        <p class="text-coro-light/25 text-[10px] mt-1 text-right tracking-wide">+ {a.otros.length} evento{a.otros.length > 1 ? 's' : ''}</p>
+                        <p class="text-coro-light/60 text-xs mt-1 text-right tracking-wide">+ {a.otros.length} evento{a.otros.length > 1 ? 's' : ''}</p>
                       )}
                     </div>
                   </button>
@@ -548,17 +555,17 @@ const años = [
                 <button class="tl-btn w-full text-left group" aria-expanded="false" data-idx={`d-${i}`}>
                   <div class="py-3 px-4 border border-transparent hover:border-coro-gold/15 hover:bg-white/[0.02] transition-all duration-300 rounded-sm">
                     <div class="flex items-baseline gap-3">
-                      <span class={`font-serif tabular-nums flex-shrink-0 ${a.destacado ? 'text-coro-gold text-2xl' : 'text-coro-gold/45 text-lg'}`}>{a.año}</span>
-                      <span class={`font-serif leading-snug ${a.destacado ? 'text-coro-light text-lg' : 'text-coro-light/65 text-base'}`}>{prog?.titulo}</span>
+                      <span class={`font-serif tabular-nums flex-shrink-0 text-3xl ${a.destacado ? 'text-coro-gold' : 'text-coro-gold/75'}`}>{a.año}</span>
+                      <span class={`font-serif leading-snug text-xl ${a.destacado ? 'text-coro-light' : 'text-coro-light/85'}`}>{prog?.titulo}</span>
                     </div>
                     {prog?.fecha && (
-                      <p class="text-coro-light/30 text-xs mt-0.5">{prog.fecha}</p>
+                      <p class="text-coro-light/65 text-sm mt-0.5">{prog.fecha}</p>
                     )}
                     {prog?.subtitulo && (
-                      <p class="text-coro-gold/55 text-xs mt-0.5">{prog.subtitulo}</p>
+                      <p class="text-coro-gold/80 text-xs mt-0.5">{prog.subtitulo}</p>
                     )}
                     {a.otros.length > 0 && (
-                      <p class="text-coro-light/25 text-[10px] mt-1 tracking-wide">+ {a.otros.length} evento{a.otros.length > 1 ? 's' : ''}</p>
+                      <p class="text-coro-light/60 text-xs mt-1 tracking-wide">+ {a.otros.length} evento{a.otros.length > 1 ? 's' : ''}</p>
                     )}
                   </div>
                 </button>
@@ -577,8 +584,8 @@ const años = [
                   <div class="px-4 pt-3 pb-4 border-x border-b border-coro-gold/10 bg-white/[0.015]">
                     {prog && (
                       <div>
-                        {prog.fecha && <p class="text-coro-light/25 text-xs mb-1">{prog.fecha}</p>}
-                        <p class="text-coro-light/35 text-xs mb-2">{prog.lugar}</p>
+                        {prog.fecha && <p class="text-coro-light/60 text-xs mb-1">{prog.fecha}</p>}
+                        <p class="text-coro-light/60 text-xs mb-2">{prog.lugar}</p>
                         <p class="text-coro-light/60 text-sm leading-relaxed">{prog.descripcion}</p>
                         {(prog.video || prog.dossier) && (
                           <div class="flex gap-5 mt-3">
@@ -590,16 +597,16 @@ const años = [
                     )}
                     {a.otros.length > 0 && (
                       <div class={prog ? 'mt-4 pt-3 border-t border-coro-gold/10' : ''}>
-                        <p class="text-coro-light/30 text-[10px] uppercase tracking-widest mb-3">También en {a.año}</p>
+                        <p class="text-coro-light/60 text-[10px] uppercase tracking-widest mb-3">También en {a.año}</p>
                         <div class="space-y-3">
                           {a.otros.map(ev => (
                             <div class="pl-2 border-l border-coro-gold/20">
-                              <p class="text-coro-gold/50 text-[10px] uppercase tracking-widest mb-0.5">
-                                {tipoLabel(ev.tipo)}
+                              <p class="text-coro-gold/80 text-[10px] uppercase tracking-widest mb-0.5">
+                                <span aria-hidden="true">{tipoIcon(ev.tipo)} </span>{tipoLabel(ev.tipo)}
                               </p>
                               <p class="text-coro-light/75 text-sm font-serif">{ev.titulo}</p>
-                              {ev.fecha && <p class="text-coro-light/25 text-[10px] mt-0.5">{ev.fecha}</p>}
-                              {ev.subtitulo && <p class="text-coro-gold/45 text-xs mt-0.5">{ev.subtitulo}</p>}
+                              {ev.fecha && <p class="text-coro-light/55 text-[10px] mt-0.5">{ev.fecha}</p>}
+                              {ev.subtitulo && <p class="text-coro-gold/75 text-xs mt-0.5">{ev.subtitulo}</p>}
                               {ev.descripcion && <p class="text-coro-light/50 text-xs leading-relaxed mt-1">{ev.descripcion}</p>}
                               {(ev.video || ev.dossier) && (
                                 <div class="flex gap-4 mt-1.5">
@@ -622,8 +629,8 @@ const años = [
                   <div class="px-4 pt-3 pb-4 border-x border-b border-coro-gold/10 bg-white/[0.015] text-right">
                     {prog && (
                       <div>
-                        {prog.fecha && <p class="text-coro-light/25 text-xs mb-1">{prog.fecha}</p>}
-                        <p class="text-coro-light/35 text-xs mb-2">{prog.lugar}</p>
+                        {prog.fecha && <p class="text-coro-light/60 text-xs mb-1">{prog.fecha}</p>}
+                        <p class="text-coro-light/60 text-xs mb-2">{prog.lugar}</p>
                         <p class="text-coro-light/60 text-sm leading-relaxed">{prog.descripcion}</p>
                         {(prog.video || prog.dossier) && (
                           <div class="flex gap-5 mt-3 justify-end">
@@ -635,16 +642,16 @@ const años = [
                     )}
                     {a.otros.length > 0 && (
                       <div class={prog ? 'mt-4 pt-3 border-t border-coro-gold/10' : ''}>
-                        <p class="text-coro-light/30 text-[10px] uppercase tracking-widest mb-3">También en {a.año}</p>
+                        <p class="text-coro-light/60 text-[10px] uppercase tracking-widest mb-3">También en {a.año}</p>
                         <div class="space-y-3">
                           {a.otros.map(ev => (
                             <div class="pr-2 border-r border-coro-gold/20">
-                              <p class="text-coro-gold/50 text-[10px] uppercase tracking-widest mb-0.5">
-                                {tipoLabel(ev.tipo)}
+                              <p class="text-coro-gold/80 text-[10px] uppercase tracking-widest mb-0.5">
+                                <span aria-hidden="true">{tipoIcon(ev.tipo)} </span>{tipoLabel(ev.tipo)}
                               </p>
                               <p class="text-coro-light/75 text-sm font-serif">{ev.titulo}</p>
-                              {ev.fecha && <p class="text-coro-light/25 text-[10px] mt-0.5">{ev.fecha}</p>}
-                              {ev.subtitulo && <p class="text-coro-gold/45 text-xs mt-0.5">{ev.subtitulo}</p>}
+                              {ev.fecha && <p class="text-coro-light/55 text-[10px] mt-0.5">{ev.fecha}</p>}
+                              {ev.subtitulo && <p class="text-coro-gold/75 text-xs mt-0.5">{ev.subtitulo}</p>}
                               {ev.descripcion && <p class="text-coro-light/50 text-xs leading-relaxed mt-1">{ev.descripcion}</p>}
                               {(ev.video || ev.dossier) && (
                                 <div class="flex gap-4 mt-1.5 justify-end">
@@ -687,16 +694,13 @@ const años = [
             <button class="tl-btn w-full text-left" aria-expanded="false" data-idx={`m-${i}`}>
               <div class="py-2.5 px-3 border border-transparent hover:border-coro-gold/15 hover:bg-white/[0.02] transition-all duration-300">
                 <div class="flex items-baseline gap-2.5">
-                  <span class={`font-serif tabular-nums flex-shrink-0 ${a.destacado ? 'text-coro-gold text-xl' : 'text-coro-gold/45 text-lg'}`}>{a.año}</span>
-                  <span class={`font-serif leading-snug ${a.destacado ? 'text-coro-light text-base' : 'text-coro-light/65 text-sm'}`}>{prog?.titulo}</span>
-                  {a.otros.some(e => e.tipo === 'premio') && (
-                    <span class="text-coro-gold text-xs flex-shrink-0">★</span>
-                  )}
+                  <span class={`font-serif tabular-nums flex-shrink-0 text-2xl ${a.destacado ? 'text-coro-gold' : 'text-coro-gold/75'}`}>{a.año}</span>
+                  <span class={`font-serif leading-snug text-lg ${a.destacado ? 'text-coro-light' : 'text-coro-light/85'}`}>{prog?.titulo}</span>
                 </div>
-                {prog?.fecha && <p class="text-coro-light/30 text-xs mt-0.5 pl-0.5">{prog.fecha}</p>}
-                {prog?.subtitulo && <p class="text-coro-gold/55 text-xs mt-0.5 pl-0.5">{prog.subtitulo}</p>}
+                {prog?.fecha && <p class="text-coro-light/65 text-xs mt-0.5 pl-0.5">{prog.fecha}</p>}
+                {prog?.subtitulo && <p class="text-coro-gold/85 text-xs mt-0.5 pl-0.5">{prog.subtitulo}</p>}
                 {a.otros.length > 0 && (
-                  <p class="text-coro-light/25 text-[10px] mt-0.5 pl-0.5 tracking-wide">+ {a.otros.length} evento{a.otros.length > 1 ? 's' : ''}</p>
+                  <p class="text-coro-light/60 text-xs mt-0.5 pl-0.5 tracking-wide">+ {a.otros.length} evento{a.otros.length > 1 ? 's' : ''}</p>
                 )}
               </div>
             </button>
@@ -705,8 +709,8 @@ const años = [
             <div id={`tl-detail-m-${i}`} class="hidden tl-detail px-3 pt-3 pb-3 border-x border-b border-coro-gold/10 bg-white/[0.015]">
               {prog && (
                 <div>
-                  {prog.fecha && <p class="text-coro-light/25 text-xs mb-1">{prog.fecha}</p>}
-                  <p class="text-coro-light/35 text-xs mb-1.5">{prog.lugar}</p>
+                  {prog.fecha && <p class="text-coro-light/60 text-xs mb-1">{prog.fecha}</p>}
+                  <p class="text-coro-light/60 text-xs mb-1.5">{prog.lugar}</p>
                   <p class="text-coro-light/60 text-sm leading-relaxed">{prog.descripcion}</p>
                   {(prog.video || prog.dossier) && (
                     <div class="flex gap-4 mt-2.5">
@@ -718,16 +722,16 @@ const años = [
               )}
               {a.otros.length > 0 && (
                 <div class={prog ? 'mt-3 pt-2.5 border-t border-coro-gold/10' : ''}>
-                  <p class="text-coro-light/30 text-[10px] uppercase tracking-widest mb-2.5">También en {a.año}</p>
+                  <p class="text-coro-light/60 text-[10px] uppercase tracking-widest mb-2.5">También en {a.año}</p>
                   <div class="space-y-2.5">
                     {a.otros.map(ev => (
                       <div class="pl-2 border-l border-coro-gold/20">
-                        <p class="text-coro-gold/50 text-[10px] uppercase tracking-widest mb-0.5">
-                          {tipoLabel(ev.tipo)}
+                        <p class="text-coro-gold/80 text-[10px] uppercase tracking-widest mb-0.5">
+                          <span aria-hidden="true">{tipoIcon(ev.tipo)} </span>{tipoLabel(ev.tipo)}
                         </p>
                         <p class="text-coro-light/75 text-sm font-serif">{ev.titulo}</p>
-                        {ev.fecha && <p class="text-coro-light/25 text-[10px] mt-0.5">{ev.fecha}</p>}
-                        {ev.subtitulo && <p class="text-coro-gold/45 text-xs mt-0.5">{ev.subtitulo}</p>}
+                        {ev.fecha && <p class="text-coro-light/55 text-[10px] mt-0.5">{ev.fecha}</p>}
+                        {ev.subtitulo && <p class="text-coro-gold/75 text-xs mt-0.5">{ev.subtitulo}</p>}
                         {ev.descripcion && <p class="text-coro-light/50 text-xs leading-relaxed mt-1">{ev.descripcion}</p>}
                         {(ev.video || ev.dossier) && (
                           <div class="flex gap-4 mt-1.5">

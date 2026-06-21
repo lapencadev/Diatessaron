@@ -19,5 +19,8 @@ npm-debug.log*
 # macOS-specific
 .DS_Store
 
+# Editor
+.vscode/
+
 # Netlify
 .netlify/

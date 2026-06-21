@@ -29,8 +29,8 @@ const conciertos = [
     cartel: '/images/carteles/cartel auditorio.jpeg',
   },
   {
-    fechaISO: '2026-06-14',
-    fechaTexto: 'Dom 14 de junio',
+    fechaISO: '2026-06-22',
+    fechaTexto: 'Lun 22 de junio',
     hora: '20:30 h',
     lugar: 'CEIP Fátima',
     ciudad: 'Molina de Segura',
@@ -72,7 +72,7 @@ const fechasJSON = JSON.stringify(conciertos.map(c => ({
       </svg>
     </button>
 
-    <p class="text-coro-gold text-xs tracking-[0.3em] uppercase mb-5">Concierto próximo</p>
+    <p id="popup-titulo" class="text-coro-gold text-xs tracking-[0.3em] uppercase mb-5">Concierto próximo</p>
     <div id="popup-fecha-info" class="border-l border-coro-gold/25 pl-4 mb-7 space-y-0.5">
       <!-- Relleno por JS -->
     </div>
@@ -146,30 +146,32 @@ const fechasJSON = JSON.stringify(conciertos.map(c => ({
             <a
               href={`https://maps.google.com/?q=${encodeURIComponent(c.lugar + ' ' + c.ciudad)}`}
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               class="group/maps inline-flex items-start gap-1.5"
+              aria-label={`Ver en Google Maps: ${c.lugar}, ${c.ciudad} (abre en nueva pestaña)`}
             >
-              <svg class="w-3 h-3 mt-1 flex-shrink-0 text-coro-light/25 group-hover/maps:text-coro-gold transition-colors" fill="currentColor" viewBox="0 0 24 24">
+              <svg class="w-3 h-3 mt-1 flex-shrink-0 text-coro-light/40 group-hover/maps:text-coro-gold transition-colors" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-2.003 3.5-4.697 3.5-8.327a8.25 8.25 0 0 0-16.5 0c0 3.63 1.556 6.324 3.5 8.327a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd"/>
               </svg>
-              <span>
-                <p class="text-coro-light/75 text-sm underline underline-offset-2 decoration-coro-light/20 group-hover/maps:text-coro-gold group-hover/maps:decoration-coro-gold/40 transition-colors">{c.lugar}</p>
-                <p class="text-coro-light/35 text-xs mt-0.5 group-hover/maps:text-coro-gold/60 transition-colors">{c.ciudad}</p>
+              <span aria-hidden="true">
+                <p class="text-coro-light/80 text-sm underline underline-offset-2 decoration-coro-light/25 group-hover/maps:text-coro-gold group-hover/maps:decoration-coro-gold/40 transition-colors">{c.lugar}</p>
+                <p class="text-coro-light/55 text-xs mt-0.5 group-hover/maps:text-coro-gold/70 transition-colors">{c.ciudad}</p>
               </span>
             </a>
           </div>
           <div class="flex-shrink-0 flex items-center gap-4">
             {c.cartel && (
               <button
-                class="abrir-cartel-btn text-coro-light/25 hover:text-coro-gold transition-colors text-xs tracking-widest uppercase"
+                class="abrir-cartel-btn text-coro-light/55 hover:text-coro-gold transition-colors text-xs tracking-widest uppercase"
                 data-cartel={c.cartel}
+                aria-label={`Ver cartel: ${c.lugar}`}
               >
                 Cartel
               </button>
             )}
             {c.entradas
-              ? <a href={c.entradas} target="_blank" rel="noopener" class="btn-primary text-xs px-4 py-2 whitespace-nowrap">Entradas</a>
-              : <span class="text-coro-light/20 text-xs tracking-widest uppercase">Entrada libre</span>
+              ? <a href={c.entradas} target="_blank" rel="noopener noreferrer" class="btn-primary text-xs px-4 py-2 whitespace-nowrap">Entradas</a>
+              : <span class="text-coro-light/50 text-xs tracking-widest uppercase">Entrada libre</span>
             }
           </div>
         </div>
@@ -186,7 +188,9 @@ const fechasJSON = JSON.stringify(conciertos.map(c => ({
     <div id="bloque-pasados" class="hidden mt-10">
       <button
         id="toggle-pasados"
-        class="flex items-center gap-2 text-coro-light/25 hover:text-coro-light/50 transition-colors text-xs tracking-[0.2em] uppercase mx-auto"
+        aria-expanded="false"
+        aria-controls="lista-pasados"
+        class="flex items-center gap-2 text-coro-light/50 hover:text-coro-light/70 transition-colors text-xs tracking-[0.2em] uppercase mx-auto"
       >
         <span id="toggle-pasados-label">Conciertos anteriores</span>
         <svg id="toggle-pasados-chevron" class="w-3 h-3 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -194,7 +198,7 @@ const fechasJSON = JSON.stringify(conciertos.map(c => ({
         </svg>
       </button>
 
-      <div id="lista-pasados" class="hidden mt-6 divide-y divide-coro-gold/8">
+      <div id="lista-pasados" class="hidden mt-6 divide-y divide-coro-gold/8" aria-hidden="true">
         {conciertos.map((c) => (
           <div
             class="concierto-pasado-item flex items-center justify-between gap-6 py-5"
@@ -202,29 +206,31 @@ const fechasJSON = JSON.stringify(conciertos.map(c => ({
           >
             <div class="flex-1 min-w-0">
               <div class="flex items-baseline gap-3 flex-wrap mb-1">
-                <span class="text-coro-light/30 text-sm">{c.fechaTexto}</span>
-                {c.hora && <span class="text-coro-light/20 text-xs">{c.hora}</span>}
+                <span class="text-coro-light/50 text-sm">{c.fechaTexto}</span>
+                {c.hora && <span class="text-coro-light/45 text-xs">{c.hora}</span>}
               </div>
               <a
                 href={`https://maps.google.com/?q=${encodeURIComponent(c.lugar + ' ' + c.ciudad)}`}
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 class="group/maps inline-flex items-start gap-1.5"
+                aria-label={`Ver en Google Maps: ${c.lugar}, ${c.ciudad} (abre en nueva pestaña)`}
               >
-                <svg class="w-3 h-3 mt-1 flex-shrink-0 text-coro-light/15 group-hover/maps:text-coro-light/40 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-3 h-3 mt-1 flex-shrink-0 text-coro-light/35 group-hover/maps:text-coro-light/60 transition-colors" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-2.003 3.5-4.697 3.5-8.327a8.25 8.25 0 0 0-16.5 0c0 3.63 1.556 6.324 3.5 8.327a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd"/>
                 </svg>
-                <span>
-                  <p class="text-coro-light/25 text-sm underline underline-offset-2 decoration-coro-light/10 group-hover/maps:text-coro-light/50 group-hover/maps:decoration-coro-light/25 transition-colors">{c.lugar}</p>
-                  <p class="text-coro-light/15 text-xs mt-0.5 group-hover/maps:text-coro-light/30 transition-colors">{c.ciudad}</p>
+                <span aria-hidden="true">
+                  <p class="text-coro-light/50 text-sm underline underline-offset-2 decoration-coro-light/20 group-hover/maps:text-coro-light/70 group-hover/maps:decoration-coro-light/40 transition-colors">{c.lugar}</p>
+                  <p class="text-coro-light/40 text-xs mt-0.5 group-hover/maps:text-coro-light/55 transition-colors">{c.ciudad}</p>
                 </span>
               </a>
             </div>
             <div class="flex-shrink-0 flex items-center gap-4">
               {c.cartel && (
                 <button
-                  class="abrir-cartel-btn text-coro-light/15 hover:text-coro-light/40 transition-colors text-xs tracking-widest uppercase"
+                  class="abrir-cartel-btn text-coro-light/45 hover:text-coro-light/70 transition-colors text-xs tracking-widest uppercase"
                   data-cartel={c.cartel}
+                  aria-label={`Ver cartel: ${c.lugar}`}
                 >
                   Cartel
                 </button>
@@ -294,30 +300,57 @@ const fechasJSON = JSON.stringify(conciertos.map(c => ({
     toggleBtn?.addEventListener('click', () => {
       pasadosAbiertos = !pasadosAbiertos;
       listaPasados?.classList.toggle('hidden', !pasadosAbiertos);
+      listaPasados?.setAttribute('aria-hidden', String(!pasadosAbiertos));
       chevron?.classList.toggle('rotate-180', pasadosAbiertos);
+      toggleBtn.setAttribute('aria-expanded', String(pasadosAbiertos));
     });
+
+    // ── Focus trap ──
+    function getFocusable(el) {
+      return [...el.querySelectorAll(
+        'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )];
+    }
+
+    function trapFocus(modal, e) {
+      if (e.key !== 'Tab') return;
+      const els = getFocusable(modal);
+      if (!els.length) return;
+      const first = els[0];
+      const last = els[els.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { last.focus(); e.preventDefault(); }
+      } else {
+        if (document.activeElement === last) { first.focus(); e.preventDefault(); }
+      }
+    }
 
     // ── Lightbox cartel ──
     const modalCartel = document.getElementById('modal-cartel');
     const cartelImg = document.getElementById('cartel-img');
     const cerrarCartelBtn = document.getElementById('cerrar-cartel');
+    let cartelTrigger = null;
 
-    function openCartel(src) {
+    function openCartel(src, triggerEl) {
+      cartelTrigger = triggerEl ?? null;
       cartelImg.src = src;
       modalCartel.classList.remove('hidden');
       modalCartel.classList.add('flex');
       document.body.style.overflow = 'hidden';
-      cerrarCartelBtn.focus();
+      requestAnimationFrame(() => cerrarCartelBtn.focus());
     }
 
     function closeCartel() {
       modalCartel.classList.add('hidden');
       modalCartel.classList.remove('flex');
       document.body.style.overflow = '';
+      if (cartelTrigger) { cartelTrigger.focus(); cartelTrigger = null; }
     }
 
+    modalCartel?.addEventListener('keydown', e => trapFocus(modalCartel, e));
+
     document.querySelectorAll('.abrir-cartel-btn').forEach(btn => {
-      btn.addEventListener('click', () => openCartel(btn.dataset.cartel));
+      btn.addEventListener('click', () => openCartel(btn.dataset.cartel, btn));
     });
     cerrarCartelBtn?.addEventListener('click', closeCartel);
     modalCartel?.addEventListener('click', e => { if (e.target === modalCartel) closeCartel(); });
@@ -339,14 +372,18 @@ const fechasJSON = JSON.stringify(conciertos.map(c => ({
     if (proxima && popup && popupFechaInfo) {
       popupFechaInfo.innerHTML = `
         <p class="text-coro-gold text-sm">${proxima.fechaTexto}${proxima.hora ? ' · ' + proxima.hora : ''}</p>
-        <p class="text-coro-light/70 text-sm mt-0.5">${proxima.lugar}</p>
-        <p class="text-coro-light/35 text-xs">${proxima.ciudad}</p>
+        <p class="text-coro-light/80 text-sm mt-0.5">${proxima.lugar}</p>
+        <p class="text-coro-light/60 text-xs">${proxima.ciudad}</p>
       `;
       setTimeout(() => {
         popup.classList.remove('hidden');
         popup.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(() => popupCerrar?.focus());
       }, 1200);
     }
+
+    popup?.addEventListener('keydown', e => trapFocus(popup, e));
 
     function closePopup() {
       popup?.classList.add('hidden');

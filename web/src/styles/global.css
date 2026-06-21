@@ -20,9 +20,21 @@
 
 @layer components {
   .section-title {
-    @apply text-4xl md:text-5xl lg:text-6xl font-light text-coro-gold mb-4;
+    @apply text-4xl font-light text-coro-gold mb-4;
     font-family: 'Cormorant Garamond', Georgia, serif;
     letter-spacing: 0.01em;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      @apply text-5xl;
+    }
+  }
+
+  @screen lg {
+    .section-title {
+      @apply text-6xl;
+    }
   }
 
   .section-divider {
@@ -35,10 +47,21 @@
     font-family: 'Inter', sans-serif;
   }
 
+  .btn-primary:focus-visible {
+    outline: 2px solid #C9A84C;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.2);
+  }
+
   .btn-outline {
     @apply inline-block px-7 py-3 border border-coro-gold/60 text-coro-gold font-semibold tracking-widest uppercase text-xs
            hover:bg-coro-gold hover:text-coro-dark transition-all duration-300 rounded-none;
     font-family: 'Inter', sans-serif;
+  }
+
+  .btn-outline:focus-visible {
+    outline: 2px solid #C9A84C;
+    outline-offset: 3px;
   }
 
   /* Scroll reveal */
@@ -57,6 +80,19 @@
   .reveal-delay-2 { transition-delay: 0.2s; }
   .reveal-delay-3 { transition-delay: 0.3s; }
   .reveal-delay-4 { transition-delay: 0.4s; }
+}
+
+/* Focus visible global — para botones sin estilos explícitos */
+:focus-visible {
+  outline: 2px solid #C9A84C;
+  outline-offset: 3px;
+}
+
+/* Inputs y selects: el outline se posiciona dentro del borde */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline-offset: 0;
 }
 
 /* Noise texture overlay en el hero */

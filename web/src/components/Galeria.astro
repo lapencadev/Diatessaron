@@ -57,9 +57,15 @@ const fotos = [
       slidesPerView: 1,
       spaceBetween: 16,
       loop: true,
-      autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
+      autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true, pauseOnFocusLoss: true },
       pagination: { el: '.swiper-pagination', clickable: true },
       navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      keyboard: { enabled: true },
+      a11y: {
+        prevSlideMessage: 'Foto anterior',
+        nextSlideMessage: 'Foto siguiente',
+        paginationBulletMessage: 'Ir a la foto {{index}}',
+      },
       breakpoints: {
         640:  { slidesPerView: 2 },
         1024: { slidesPerView: 3 },
