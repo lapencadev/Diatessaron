@@ -47,20 +47,22 @@ Edita el array `años`. Cada entrada tiene esta forma:
   año: 2024,
   destacado: false,   // true para años especiales (fundación, aniversarios, premios)
   programa: {
-    titulo: 'NOMBRE DEL PROGRAMA',
-    subtitulo: null,              // o texto como '15º Aniversario'
-    lugar: 'Nombre del lugar',
+    titulo: 'Nombre del programa',
+    subtitulo: null,                  // o texto como '15º Aniversario' o la traducción del título
+    fecha: 'Abril - Noviembre 2024',  // mes o rango de meses (null si se desconoce)
+    lugar: 'Lugar 1 · Lugar 2',
     descripcion: 'Descripción breve.',
-    video: null,                  // o URL completa de YouTube
-    dossier: null,                // o ruta a un PDF: '/dossiers/programa-2024.pdf'
+    video: null,                      // o URL completa de YouTube
+    dossier: null,                    // o ruta a un PDF: '/dossiers/programa-2024.pdf'
   },
   otros: [
-    // colaboraciones u otros eventos del año (puede ser array vacío)
+    // premios, certámenes, colaboraciones y otros eventos del año (puede ser un array vacío)
     {
-      tipo: 'colaboracion',
+      tipo: 'premio',       // ver tipos disponibles abajo
       titulo: 'Título del evento',
-      subtitulo: '2024',
-      lugar: 'Lugar',
+      subtitulo: null,
+      fecha: 'Noviembre 2024',
+      lugar: 'Lugar',       // se muestra junto a la fecha al desplegar el año
       descripcion: 'Descripción breve.',
       video: null,
       dossier: null,
@@ -69,17 +71,42 @@ Edita el array `años`. Cada entrada tiene esta forma:
 },
 ```
 
+**Tipos de evento** (campo `tipo` de `otros`):
+
+| Tipo | Icono | Uso |
+|---|---|---|
+| `premio` | ★ | Galardones obtenidos |
+| `certamen` | ✦ | Participación en certámenes sin premio (finalista, invitados…) |
+| `colaboracion` | ♦ | Conciertos junto a otras agrupaciones u orquestas |
+| `intercambio` | ⇄ | Intercambios corales |
+| `concierto` | ● | Otros conciertos y encuentros |
+
+**Criterios de redacción** (fijados por el director):
+- Su nombre siempre como **Tomeu Quetgles-Roca** (nombre artístico, con guion).
+- Los títulos de programas en redonda, nunca en mayúsculas completas («Ver Sacrvm», no «VER SACRVM»).
+- Los aniversarios del coro se cuentan desde el **primer concierto (marzo de 2011)**, no desde la fundación (2010).
+
 ---
 
 ### Vídeos · `src/components/Videos.astro`
 
-Edita el array `videos` — solo necesitas el ID del vídeo de YouTube:
+La sección muestra un **reproductor destacado** y una **tira de miniaturas** deslizable. El vídeo de YouTube solo se carga cuando el visitante pulsa play — la página solo descarga miniaturas, así que se pueden añadir vídeos sin miedo a que pese.
+
+Edita el array `videos`:
 
 ```js
-{ id: 'YOUTUBE_VIDEO_ID', titulo: 'Título del vídeo' }
+{
+  id: 'YOUTUBE_VIDEO_ID',
+  titulo: 'Compositor: Obra',
+  descripcion: 'Programa, lugar y fecha.',  // sin repetir el nombre del coro
+}
 ```
 
-El ID es la parte final de la URL: `youtube.com/watch?v=`**`ESTE_ES_EL_ID`**
+- El ID es la parte final de la URL: `youtube.com/watch?v=`**`ESTE_ES_EL_ID`**
+- El **primer vídeo** del array es el que aparece destacado al cargar la página.
+- El orden de la lista es el de la tira: **de más reciente a más antiguo** (por fecha de concierto).
+- Las miniaturas se obtienen automáticamente de YouTube; no hay que subir imágenes.
+- Si el vídeo corresponde a un concierto del historial, enlázalo también en el campo `video` de esa entrada en `Timeline.astro` (aparecerá el botón «▶ Vídeo» al desplegar el año).
 
 ---
 
@@ -102,7 +129,25 @@ Actualiza los enlaces e iconos si cambian los perfiles.
 
 ### Sobre nosotros · `src/components/SobreNosotros.astro`
 
-El texto descriptivo del coro está escrito directamente en el HTML del componente. Edítalo ahí si cambia la descripción del coro.
+El texto descriptivo del coro está escrito directamente en el HTML del componente.
+
+---
+
+### Formulario de contacto · `src/components/Contacto.astro`
+
+Cada envío hace dos cosas: se guarda en **Netlify → Forms** y dispara una notificación por email vía **EmailJS**.
+
+**Cambiar el correo de destino** 
+- Notificación por email: [dashboard.emailjs.com](https://dashboard.emailjs.com) → Email Templates → plantilla → **Settings → «To Email»**.
+- Si hay notificación también en Netlify: Site configuration → Forms → Form notifications.
+
+**Protección antispam**:
+- Campo *honeypot* oculto (`bot-field`): los bots que lo rellenan son descartados tanto por Netlify como por el script antes de llamar a EmailJS.
+- Filtro Akismet automático de Netlify Forms.
+- Longitud máxima en los campos (nombre 100, email 150, mensaje 3000 caracteres).
+- Panel de EmailJS → Security, restringidos los envíos al dominio de la web.
+
+Futuro refuerzo: reCAPTCHA de Netlify (`data-netlify-recaptcha`).
 
 ---
 
@@ -153,8 +198,8 @@ En producción se configuran en **Netlify → Site configuration → Environment
 
 ---
 
-## Despliegue
+## Despliegue - [![Netlify Status](https://api.netlify.com/api/v1/badges/f9a94b71-ee91-4de9-957d-f3c14b3b831d/deploy-status)](https://app.netlify.com/projects/corodiatessaron/deploys)
 
 El sitio se despliega automáticamente en Netlify cuando se hace push a `main`.
 
-El formulario de contacto guarda cada envío en **Netlify → Forms** y manda una notificación por email a **corodiatessaron.rrss@gmail.com** mediante EmailJS.
+El formulario de contacto guarda cada envío en **Netlify → Forms** y manda una notificación por email mediante EmailJS.

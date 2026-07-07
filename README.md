@@ -25,6 +25,6 @@ Dirigido por **Tomeu Quetgles-Roca**, el coro lleva años ofreciendo programas c
 
 La web está construida como un sitio estático de una sola página, rápido y sin necesidad de servidor. El diseño usa una paleta oscura con dorado que refleja la identidad del coro.
 
-Construido con [Astro](https://astro.build) · [Tailwind CSS](https://tailwindcss.com) · Desplegado en [Netlify](https://netlify.com)
+Construido con [Astro](https://astro.build) · [Tailwind CSS](https://tailwindcss.com) · [EmailJS](https://www.emailjs.com) · Desplegado en [Netlify](https://netlify.com)
 
 Para los detalles técnicos, configuración local y guía de actualización de contenidos, consulta la [documentación del proyecto](web/README.md).

@@ -1,57 +1,151 @@
 ---
-// Añade o quita vídeos aquí — usa el ID de YouTube (la parte final de la URL)
+// Añade o quita vídeos aquí — usa el ID de YouTube (la parte final de la URL).
+// El primero de la lista es el que aparece destacado al cargar la página.
 const videos = [
   {
     id: 'r-h7S0uo7VY',
     titulo: 'Concierto Western — Resumen',
-    descripcion: 'Vídeo resumen del espectacular concierto temático Western del Coro Diatessaron.',
+    descripcion: 'Resumen del espectacular concierto temático dedicado a la música del Lejano Oeste (2025).',
+  },
+  {
+    id: 'x3VA9Q5O_cU',
+    titulo: 'Rheinberger: Kyrie a doble coro',
+    descripcion: 'Del programa «Destellos», en la iglesia de San Vicente Mártir de Molina de Segura (octubre de 2023).',
+  },
+  {
+    id: 'QJhQZnbSBYs',
+    titulo: 'Arnesen: Even When He Is Silent',
+    descripcion: 'La delicada obra de Kim André Arnesen. Programa «Destellos», Auditorio Víctor Villegas (junio de 2023).',
+  },
+  {
+    id: 'qLhwVskpd5s',
+    titulo: 'Thomàs: Bressol trist',
+    descripcion: 'La nana del compositor mallorquín Joan Maria Thomàs. Programa «Destellos», Auditorio Víctor Villegas (junio de 2023).',
   },
   {
     id: 'r8ID90y7Mgk',
     titulo: 'Ola Gjeilo: Northern Lights',
-    descripcion: 'Interpretación de Northern Lights dentro del programa «Destellos».',
+    descripcion: 'Del programa «Destellos».',
   },
   {
     id: 'oUk75LDOK30',
     titulo: 'Josep Vila: Sanctus-Benedictus',
-    descripcion: 'Sanctus-Benedictus de Josep Vila, programa «Destellos».',
+    descripcion: 'Del programa «Destellos».',
+  },
+  {
+    id: '-0Ypi9jN4JA',
+    titulo: 'Brahms: Geistliches Lied',
+    descripcion: 'Del programa «Fons amoris», en la iglesia de la Virgen del Carmen de Murcia (junio de 2021).',
+  },
+  {
+    id: '40RVgRjTEH0',
+    titulo: 'Así suena Diatessaron',
+    descripcion: 'Un recorrido en imágenes y música por los primeros años del coro.',
+  },
+  {
+    id: 'kRhEwfEos80',
+    titulo: 'Signore delle cime — con el Coro Joven de Murcia',
+    descripcion: 'Junto al Coro Joven de Murcia, en el intercambio celebrado en Molina de Segura (noviembre de 2019).',
+  },
+  {
+    id: '4oqtOnAhxTE',
+    titulo: 'De la luz a la penumbra — MUDEM',
+    descripcion: 'Concierto de la Semana Musical de Santa Cecilia en el Auditorio MUDEM de Molina de Segura (2019).',
+  },
+  {
+    id: '7OLoXHH6pjk',
+    titulo: 'Músicas nocturnas — Auditorio Víctor Villegas',
+    descripcion: 'Parte del concierto ofrecido en el Auditorio Víctor Villegas de Murcia (marzo de 2015).',
+  },
+  {
+    id: '8pUXpjzlxWM',
+    titulo: 'Kreek y Kodály',
+    descripcion: 'Del programa «Encadenados», en la iglesia de San Roque de Alcantarilla (octubre de 2013).',
+  },
+  {
+    id: 's1Cr9kx8QxI',
+    titulo: 'Rheinberger: Ave Regina',
+    descripcion: 'Del programa «Ad te suspiramus», en Cartagena (octubre de 2012).',
   },
 ];
+
+const primero = videos[0];
 ---
 
 <section id="videos" class="py-16 px-4 bg-coro-dark">
-  <div class="max-w-6xl mx-auto">
+  <div class="max-w-5xl mx-auto">
 
     <div class="reveal">
       <h2 class="section-title">Vídeos</h2>
       <div class="section-divider"></div>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {videos.map((v, i) => (
-        <div class={`flex flex-col gap-3 reveal reveal-delay-${Math.min(i + 1, 4)}`}>
-          <!-- Embed YouTube con aspect ratio 16:9 -->
-          <div class="relative w-full" style="padding-top: 56.25%">
-            <iframe
-              class="absolute inset-0 w-full h-full rounded-sm"
-              src={`https://www.youtube.com/embed/${v.id}`}
-              title={v.titulo}
-              style="border:0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy"
-            ></iframe>
-          </div>
-          <div>
-            <h3 class="text-coro-light font-serif text-lg">{v.titulo}</h3>
-            <p class="text-coro-light/50 text-sm mt-1">{v.descripcion}</p>
-          </div>
-        </div>
-      ))}
+    <!-- Reproductor destacado -->
+    <div class="reveal reveal-delay-1">
+      <div
+        id="video-stage"
+        class="relative w-full max-w-3xl mx-auto rounded-sm overflow-hidden border border-coro-gold/15 bg-black"
+        style="aspect-ratio: 16 / 9;"
+      >
+        <button
+          id="video-play"
+          class="group absolute inset-0 w-full h-full cursor-pointer"
+          data-id={primero.id}
+          data-titulo={primero.titulo}
+          aria-label={`Reproducir: ${primero.titulo}`}
+        >
+          <img
+            src={`https://i.ytimg.com/vi/${primero.id}/hqdefault.jpg`}
+            alt=""
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <span class="absolute inset-0 bg-coro-dark/30 group-hover:bg-coro-dark/10 transition-colors duration-300" aria-hidden="true"></span>
+          <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-coro-dark/70 border border-coro-gold/60 flex items-center justify-center group-hover:scale-105 transition-transform duration-300" aria-hidden="true">
+            <svg class="w-6 h-6 text-coro-gold ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </button>
+        <noscript>
+          <p class="absolute bottom-3 left-0 right-0 text-center text-xs text-coro-light/80 px-4">
+            Para ver los vídeos, visita nuestro <a class="text-coro-gold underline" href="https://www.youtube.com/@corodiatessaron">canal de YouTube</a>.
+          </p>
+        </noscript>
+      </div>
+
+      <div class="max-w-3xl mx-auto mt-4 min-h-[3.5rem]">
+        <h3 id="video-titulo" class="text-coro-light font-serif text-xl">{primero.titulo}</h3>
+        <p id="video-desc" class="text-coro-light/50 text-sm mt-1">{primero.descripcion}</p>
+      </div>
+    </div>
+
+    <!-- Tira de miniaturas -->
+    <div class="mt-8 -mx-4 px-4 overflow-x-auto pb-3 reveal reveal-delay-2">
+      <div class="flex gap-3" style="scroll-snap-type: x proximity;">
+        {videos.map((v, i) => (
+          <button
+            class={`video-thumb flex-shrink-0 w-40 text-left ${i === 0 ? 'is-active' : ''}`}
+            style="scroll-snap-align: start;"
+            data-id={v.id}
+            data-titulo={v.titulo}
+            data-descripcion={v.descripcion}
+            aria-label={`Ver: ${v.titulo}`}
+          >
+            <div class="thumb-frame relative rounded-sm overflow-hidden" style="aspect-ratio: 16 / 9;">
+              <img
+                src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`}
+                alt=""
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <p class="thumb-title text-xs mt-1.5 leading-snug text-coro-light/60 transition-colors duration-300">{v.titulo}</p>
+          </button>
+        ))}
+      </div>
     </div>
 
     <!-- Enlace al canal -->
-    <div class="mt-12 text-center">
+    <div class="mt-10 text-center">
       <a
         href="https://www.youtube.com/@corodiatessaron"
         target="_blank"
@@ -64,3 +158,67 @@ const videos = [
 
   </div>
 </section>
+
+<style>
+  .thumb-frame {
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    opacity: 0.7;
+    transition: opacity 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .video-thumb:hover .thumb-frame {
+    opacity: 1;
+  }
+  .video-thumb.is-active .thumb-frame {
+    opacity: 1;
+    border-color: rgba(201, 168, 76, 0.8);
+    box-shadow: 0 0 12px rgba(201, 168, 76, 0.2);
+  }
+  .video-thumb.is-active .thumb-title {
+    color: #C9A84C;
+  }
+  .thumb-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  const stage = document.getElementById('video-stage');
+  const tituloEl = document.getElementById('video-titulo');
+  const descEl = document.getElementById('video-desc');
+  const playBtn = document.getElementById('video-play');
+
+  // Sustituye el póster por el iframe de YouTube (solo se carga al reproducir)
+  function loadPlayer(id: string, titulo: string) {
+    if (!stage) return;
+    const iframe = document.createElement('iframe');
+    iframe.className = 'absolute inset-0 w-full h-full';
+    iframe.src = `https://www.youtube.com/embed/${encodeURIComponent(id)}?autoplay=1`;
+    iframe.title = titulo;
+    iframe.style.border = '0';
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    stage.replaceChildren(iframe);
+  }
+
+  playBtn?.addEventListener('click', () => {
+    const { id, titulo } = playBtn.dataset;
+    if (id) loadPlayer(id, titulo ?? '');
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.video-thumb').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const { id, titulo, descripcion } = btn.dataset;
+      if (!id) return;
+      document.querySelector('.video-thumb.is-active')?.classList.remove('is-active');
+      btn.classList.add('is-active');
+      if (tituloEl) tituloEl.textContent = titulo ?? '';
+      if (descEl) descEl.textContent = descripcion ?? '';
+      loadPlayer(id, titulo ?? '');
+      stage?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  });
+</script>
