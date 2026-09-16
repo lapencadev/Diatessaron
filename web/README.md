@@ -53,6 +53,7 @@ Edita el array `años`. Cada entrada tiene esta forma:
     lugar: 'Lugar 1 · Lugar 2',
     descripcion: 'Descripción breve.',
     video: null,                      // o URL completa de YouTube
+    cartel: null,                     // o ruta a la imagen del cartel: '/images/carteles/programa-2024.jpg'
     dossier: null,                    // o ruta a un PDF: '/dossiers/programa-2024.pdf'
   },
   otros: [
@@ -70,6 +71,8 @@ Edita el array `años`. Cada entrada tiene esta forma:
   ],
 },
 ```
+
+**Cartel del programa principal:** solo el `programa` de cada año admite `cartel` (los eventos de `otros` no) — copia la imagen a `public/images/carteles/` y añade la ruta. Aparece como botón «Cartel» junto a «Vídeo» y «Dossier» al desplegar el año.
 
 **Tipos de evento** (campo `tipo` de `otros`):
 
@@ -130,6 +133,15 @@ Actualiza los enlaces e iconos si cambian los perfiles.
 ### Sobre nosotros · `src/components/SobreNosotros.astro`
 
 El texto descriptivo del coro está escrito directamente en el HTML del componente.
+
+**Fotos de las cuerdas (opcional):** aparecen debajo de las estadísticas solo si el array `cuerdas` tiene contenido — mientras esté vacío, ese bloque no se muestra.
+
+1. Copia las fotos a `public/images/cuerdas/`
+2. Añade cada una al array `cuerdas`:
+
+```js
+{ src: '/images/cuerdas/sopranos.jpg', label: 'Sopranos' }
+```
 
 ---
 

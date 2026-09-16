@@ -7,7 +7,7 @@ Sitio web oficial del **Coro Diatessaron**, grupo coral con sede en Molina de Se
 
 Dirigido por **Tomeu Quetgles-Roca**, el coro lleva años ofreciendo programas corales de repertorio variado — desde polifonía clásica hasta música contemporánea — en conciertos, ceremonias y eventos culturales de la región.
 
-**[Coro Diatessaron](https://corodiatessaron.netlify.app)**
+**[Coro Diatessaron](https://corodiatessaron.es)**
 
 ---
 
