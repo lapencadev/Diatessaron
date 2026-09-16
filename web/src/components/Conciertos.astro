@@ -17,7 +17,7 @@ const conciertos = [
     lugar: 'Iglesia Conventual de Santa Ana',
     ciudad: 'Murcia',
     entradas: null,
-    cartel: '/images/carteles/M3C-conexiones-190526.png',
+    cartel: '/images/carteles/M3C-conexiones-190526.jpg',
   },
   {
     fechaISO: '2026-05-30',
@@ -103,12 +103,17 @@ const fechasJSON = JSON.stringify(conciertos.map(c => ({
       </button>
     </div>
     <!-- Imagen -->
-    <div class="flex-1 min-h-0 flex items-center justify-center p-4">
+    <div class="relative flex-1 min-h-0 flex items-center justify-center p-4">
+      <div
+        id="cartel-spinner"
+        class="absolute w-8 h-8 rounded-full border-2 border-coro-gold/20 border-t-coro-gold animate-spin"
+        aria-hidden="true"
+      ></div>
       <img
         id="cartel-img"
         src=""
         alt="Cartel del concierto"
-        class="max-w-full max-h-full object-contain"
+        class="max-w-full max-h-full object-contain transition-opacity duration-200"
       />
     </div>
   </div>
@@ -346,16 +351,27 @@ const fechasJSON = JSON.stringify(conciertos.map(c => ({
     // ── Lightbox cartel ──
     const modalCartel = document.getElementById('modal-cartel');
     const cartelImg = document.getElementById('cartel-img');
+    const cartelSpinner = document.getElementById('cartel-spinner');
     const cerrarCartelBtn = document.getElementById('cerrar-cartel');
     let cartelTrigger = null;
 
     function openCartel(src, triggerEl) {
       cartelTrigger = triggerEl ?? null;
-      cartelImg.src = src;
+      cartelImg.style.opacity = '0';
+      cartelSpinner.classList.remove('hidden');
       modalCartel.classList.remove('hidden');
       modalCartel.classList.add('flex');
       document.body.style.overflow = 'hidden';
       requestAnimationFrame(() => cerrarCartelBtn.focus());
+
+      // Precarga la imagen antes de mostrarla, así no se ve el cartel anterior mientras carga
+      const preload = new Image();
+      preload.onload = () => {
+        cartelImg.src = src;
+        cartelImg.style.opacity = '1';
+        cartelSpinner.classList.add('hidden');
+      };
+      preload.src = src;
     }
 
     function closeCartel() {
