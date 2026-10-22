@@ -2,6 +2,8 @@
 
 ## Desarrollo local
 
+Necesita **Node 22.23.4 o superior** (Astro 7). Netlify construye con Node 24, fijado en `netlify.toml`.
+
 ```bash
 cd web
 npm install
@@ -194,6 +196,13 @@ web/
 | `coro-dark` | `#0D0D0D` | Negro — fondo principal |
 | `coro-gray` | `#1A1A2E` | Gris oscuro — fondo secciones alternas |
 | `coro-light` | `#F5F0E8` | Crema — texto |
+
+---
+
+## Tecnología
+
+- **Astro 7**, web estática. En `astro.config.mjs`, `compressHTML: true` mantiene los espacios entre elementos en línea; con el valor por defecto de Astro 7 se pegarían palabras (por ejemplo, «enMolina»).
+- **Tailwind CSS 3**, procesado con PostCSS (`postcss.config.mjs`). Los estilos base de Tailwind (`@tailwind base/components/utilities`) están en `src/styles/global.css`, que importa el layout. Pasar a Tailwind 4 quitaría las últimas alertas de dependencias, pero cambia estilos por defecto y se hará aparte.
 
 ---
 
