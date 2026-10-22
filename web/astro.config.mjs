@@ -5,6 +5,9 @@ import { defineConfig } from 'astro/config';
 // que importa el layout.
 export default defineConfig({
   site: 'https://corodiatessaron.es',
+  // Astro 7 quita por defecto los espacios entre elementos en línea (p. ej. «en <span>Molina</span>»
+  // pasaba a verse «enMolina»). true mantiene el comportamiento de Astro 6.
+  compressHTML: true,
   vite: {
     cacheDir: '/tmp/vite-diatessaron',
   },
