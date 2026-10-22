@@ -1,4 +1,13 @@
 ---
+// Fotos de las cuerdas (opcional). Copia las fotos a public/images/cuerdas/
+// y añade cada una aquí — igual que en Galeria.astro. Mientras el array
+// esté vacío, este bloque no se muestra.
+const cuerdas: { src: string; label: string }[] = [
+  // { src: '/images/cuerdas/sopranos.jpg', label: 'Sopranos' },
+  // { src: '/images/cuerdas/altos.jpg', label: 'Contraltos' },
+  // { src: '/images/cuerdas/tenores.jpg', label: 'Tenores' },
+  // { src: '/images/cuerdas/bajos.jpg', label: 'Bajos' },
+];
 ---
 
 <section id="nosotros" class="pt-24 pb-12 px-4 bg-coro-dark">
@@ -43,7 +52,7 @@
         <div class="grid grid-cols-2 gap-px bg-coro-gold/10">
           {[
             { num: '15', unit: 'años', label: 'de trayectoria' },
-            { num: '+25', unit: 'voces', label: 'en escena' },
+            { num: '30', unit: 'voces', label: 'en la plantilla' },
             { num: '9', unit: 'premios', label: 'en certámenes nacionales' },
             { num: '2010', unit: '', label: 'Fundación del coro' },
           ].map(s => (
@@ -69,5 +78,27 @@
       </div>
 
     </div>
+
+    {cuerdas.length > 0 && (
+      <div class="mt-16 reveal reveal-delay-2">
+        <p class="text-coro-gold/70 text-xs tracking-widest uppercase mb-6">Nuestras voces</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {cuerdas.map(cuerda => (
+            <div class="relative overflow-hidden aspect-square group">
+              <img
+                src={cuerda.src}
+                alt={`Coro Diatessaron — ${cuerda.label}`}
+                loading="lazy"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-3">
+                <span class="text-coro-light text-sm tracking-wide" style="font-family: 'Cormorant Garamond', serif;">{cuerda.label}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
   </div>
 </section>
