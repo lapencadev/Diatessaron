@@ -1,8 +1,9 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 
+// Tailwind se aplica con PostCSS (postcss.config.mjs); los estilos base
+// (@tailwind base/components/utilities) están en src/styles/global.css,
+// que importa el layout.
 export default defineConfig({
-  integrations: [tailwind()],
   site: 'https://corodiatessaron.es',
   vite: {
     cacheDir: '/tmp/vite-diatessaron',
