@@ -1,4 +1,6 @@
 ---
+import Navidad from './Navidad.astro';
+
 // heroImage: foto de fondo del hero. Cambia aquí si quieres otra.
 const heroImage = '/images/galeria/foto8.jpg';
 ---
@@ -24,6 +26,9 @@ const heroImage = '/images/galeria/foto8.jpg';
     style="background: linear-gradient(to bottom, rgba(13,13,13,0.7) 0%, transparent 25%, transparent 55%, rgba(13,13,13,0.85) 100%);"
     aria-hidden="true"
   ></div>
+
+  <!-- Navidad (temporal): nevada dorada y aviso de conciertos. Se activa sola por fechas, ver Navidad.astro -->
+  <Navidad />
 
   <!-- Contenido central -->
   <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
@@ -65,6 +70,24 @@ const heroImage = '/images/galeria/foto8.jpg';
       <a href="#videos" class="btn-outline">Ver vídeos</a>
     </div>
 
+    <!-- Aviso de Navidad (temporal, se muestra solo por fechas: ver Navidad.astro) -->
+    <div id="hero-navidad" class="navidad-aviso hidden opacity-0 translate-y-4 transition-all duration-700 ease-out mt-10">
+      <a href="#conciertos" class="group inline-flex flex-col items-center gap-1.5 text-coro-light/90 hover:text-coro-gold transition-colors">
+        <span
+          class="text-coro-gold text-xs md:text-sm font-medium tracking-[0.3em] uppercase"
+          style="text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 2px 16px rgba(0,0,0,0.8);"
+        >✦&nbsp; Conciertos de Navidad &nbsp;✦</span>
+        <span
+          class="text-2xl md:text-3xl italic text-coro-light"
+          style="font-family: 'Cormorant Garamond', Georgia, serif; text-shadow: 0 1px 4px rgba(0,0,0,0.9), 0 2px 20px rgba(0,0,0,0.9);"
+        >Os esperamos el 12, 18 y 20 de diciembre</span>
+        <span
+          class="text-xs md:text-sm tracking-widest uppercase text-coro-light/85 group-hover:text-coro-gold transition-colors underline underline-offset-4 decoration-coro-gold/50"
+          style="text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 2px 12px rgba(0,0,0,0.8);"
+        >Ver horarios y lugares →</span>
+      </a>
+    </div>
+
   </div>
 
   <!-- Flecha scroll -->
@@ -86,6 +109,7 @@ const heroImage = '/images/galeria/foto8.jpg';
     setTimeout(() => document.getElementById('hero-title')?.classList.remove('opacity-0', 'translate-y-6'), 400);
     setTimeout(() => document.getElementById('hero-desc')?.classList.remove('opacity-0', 'translate-y-4'), 700);
     setTimeout(() => document.getElementById('hero-ctas')?.classList.remove('opacity-0', 'translate-y-4'), 900);
+    setTimeout(() => document.getElementById('hero-navidad')?.classList.remove('opacity-0', 'translate-y-4'), 1150);
     setTimeout(() => document.getElementById('hero-arrow')?.classList.remove('opacity-0'), 1400);
   });
 
