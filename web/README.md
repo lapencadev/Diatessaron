@@ -163,6 +163,18 @@ Cada envío hace dos cosas: se guarda en **Netlify → Forms** y dispara una not
 
 Futuro refuerzo: reCAPTCHA de Netlify (`data-netlify-recaptcha`).
 
+### Decoración de Navidad (temporal) · `src/components/Navidad.astro`
+
+Nevada suave de destellos dorados sobre la foto de portada y, debajo de los botones, un aviso con las fechas de los conciertos de Navidad. **Se enciende y se apaga sola** según el día en que se visita la web, sin volver a publicar:
+
+- `DESDE` / `HASTA`: días en que se ve la nevada (ahora, del 1 de diciembre al 6 de enero).
+- `FIN_AVISO`: último día del aviso de conciertos (el del último concierto).
+- El texto del aviso está en `src/components/Hero.astro` (bloque `hero-navidad`).
+- Para verlo fuera de fechas, añade `?navidad` a la dirección: `http://localhost:4321/?navidad`.
+- Quien tiene activado «reducir movimiento» en su dispositivo no ve la nevada.
+
+Para el año que viene basta con cambiar las fechas y el texto del aviso.
+
 ---
 
 ## Estructura de archivos

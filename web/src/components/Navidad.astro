@@ -1,0 +1,91 @@
+---
+// ─────────────────────────────────────────────────────────────────────────────
+// DECORACIÓN DE NAVIDAD (temporal)
+//
+// Se enciende y se apaga sola según la fecha del visitante, sin tener que
+// volver a publicar la web:
+//   · DESDE / HASTA      → días en que se ve la nevada dorada en la portada.
+//   · FIN_AVISO          → último día en que se ve el aviso de los conciertos
+//                          (después del último concierto ya no tiene sentido).
+// Para verlo fuera de esas fechas, añade ?navidad a la dirección
+// (por ejemplo, http://localhost:4321/?navidad).
+//
+// Para quitarlo del todo: borra <Navidad /> y el bloque "hero-navidad" de
+// Hero.astro (y su línea en el script del final), y este archivo.
+// ─────────────────────────────────────────────────────────────────────────────
+const DESDE = '2026-12-01';
+const HASTA = '2027-01-06';
+const FIN_AVISO = '2026-12-20';
+
+// Copos: posiciones "aleatorias" pero fijas (iguales en cada visita)
+const azar = (n: number) => {
+  const x = Math.sin(n * 9301 + 49297) * 233280;
+  return x - Math.floor(x);
+};
+const copos = Array.from({ length: 34 }, (_, i) => ({
+  izquierda: (azar(i + 1) * 100).toFixed(2),
+  tamaño: (2 + azar(i + 101) * 3).toFixed(1),            // 2–5 px
+  duracion: (14 + azar(i + 201) * 14).toFixed(1),        // 14–28 s, caen despacio
+  retraso: (-azar(i + 301) * 28).toFixed(1),             // empiezan ya repartidos
+  vaiven: (10 + azar(i + 401) * 30).toFixed(0),          // 10–40 px de lado a lado
+  opacidad: (0.35 + azar(i + 501) * 0.5).toFixed(2),
+  estrella: i % 7 === 0,                                 // algunos son ✦
+}));
+---
+
+<div class="navidad-nieve hidden absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+  {copos.map(c => (
+    <span
+      class:list={['copo', { 'copo-estrella': c.estrella }]}
+      style={`left:${c.izquierda}%; --t:${c.tamaño}px; --d:${c.duracion}s; --r:${c.retraso}s; --v:${c.vaiven}px; --o:${c.opacidad};`}
+    >{c.estrella ? '✦' : ''}</span>
+  ))}
+</div>
+
+<script is:inline define:vars={{ DESDE, HASTA, FIN_AVISO }}>
+  // Espera a que la página esté cargada: el aviso está en Hero.astro, después de este script
+  document.addEventListener('DOMContentLoaded', function () {
+    var hoy = new Date();
+    var dia = hoy.getFullYear() + '-' + String(hoy.getMonth() + 1).padStart(2, '0') + '-' + String(hoy.getDate()).padStart(2, '0');
+    var forzar = /[?&]navidad\b/.test(location.search);
+    var navidad = forzar || (dia >= DESDE && dia <= HASTA);
+    var aviso = forzar || (dia >= DESDE && dia <= FIN_AVISO);
+    if (navidad) document.querySelectorAll('.navidad-nieve').forEach(function (el) { el.classList.remove('hidden'); });
+    if (aviso) document.querySelectorAll('.navidad-aviso').forEach(function (el) { el.classList.remove('hidden'); });
+  });
+</script>
+
+<style>
+  .copo {
+    position: absolute;
+    top: -10%;
+    width: var(--t);
+    height: var(--t);
+    border-radius: 9999px;
+    background: radial-gradient(circle, rgba(245, 240, 232, 0.95) 0%, rgba(201, 168, 76, 0.7) 60%, transparent 100%);
+    opacity: var(--o);
+    animation:
+      caer var(--d) linear var(--r) infinite,
+      vaiven calc(var(--d) / 4) ease-in-out var(--r) infinite alternate;
+  }
+  .copo-estrella {
+    width: auto;
+    height: auto;
+    background: none;
+    color: #C9A84C;
+    font-size: calc(var(--t) * 2.6);
+    line-height: 1;
+    text-shadow: 0 0 8px rgba(201, 168, 76, 0.6);
+  }
+  @keyframes caer {
+    to { top: 110%; }
+  }
+  @keyframes vaiven {
+    from { transform: translateX(calc(var(--v) * -0.5)); }
+    to   { transform: translateX(calc(var(--v) * 0.5)); }
+  }
+  /* Quien tenga activado "reducir movimiento" no ve la nevada */
+  @media (prefers-reduced-motion: reduce) {
+    .navidad-nieve { display: none; }
+  }
+</style>
