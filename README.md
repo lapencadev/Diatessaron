@@ -1,6 +1,3 @@
-## SHHH 
-Esta web se está elaborando actualmente en secreto, para presentar en la asamblea de fin de curso, si te topas con esto de casualidad, ¡aún no existe!
-
 # Coro Diatessaron
 
 Sitio web oficial del **Coro Diatessaron**, grupo coral con sede en Molina de Segura, Murcia.

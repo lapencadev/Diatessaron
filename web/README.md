@@ -117,12 +117,20 @@ Edita el array `videos`:
 
 ### Galería · `src/components/Galeria.astro`
 
-1. Copia las fotos a `public/images/galeria/`
+1. Copia las fotos a `public/images/galeria/` **ya optimizadas** (ver «Optimizar fotos»)
 2. Añade las rutas en el array `fotos`:
 
 ```js
 { src: '/images/galeria/nombre.jpg', alt: 'Descripción de la foto' }
 ```
+
+**Optimizar fotos** antes de subirlas (una foto de móvil pesa 3-9 MB; en la web basta con 200-800 KB). En Mac, desde la carpeta de la foto:
+
+```bash
+sips -Z 2000 -s format jpeg -s formatOptions 80 foto.jpg --out foto.jpg
+```
+
+(`-Z 2000` = lado mayor de 2000 px; para las cuerdas basta `-Z 1200`). Guarda los originales en `fotos-originales/` (en la raíz del proyecto, fuera de git).
 
 ---
 
@@ -138,7 +146,7 @@ El texto descriptivo del coro está escrito directamente en el HTML del componen
 
 **Fotos de las cuerdas (opcional):** aparecen debajo de las estadísticas solo si el array `cuerdas` tiene contenido — mientras esté vacío, ese bloque no se muestra.
 
-1. Copia las fotos a `public/images/cuerdas/`
+1. Copia las fotos a `public/images/cuerdas/` **ya optimizadas** (ver «Optimizar fotos» más abajo)
 2. Añade cada una al array `cuerdas`:
 
 ```js
@@ -175,6 +183,7 @@ web/
 │   └── images/
 │       ├── galeria/        ← fotos de la galería
 │       ├── carteles/       ← carteles de conciertos
+│       ├── cuerdas/        ← fotos por cuerda (Sobre nosotros)
 │       └── rrss.jpg        ← imagen Open Graph / redes sociales
 └── src/
     ├── components/         ← un archivo por sección
